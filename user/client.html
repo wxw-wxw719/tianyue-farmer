@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#F7F3EA">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="田约认采认养人端：陪伴你的8号树，看见一棵真实果树的心情、成长与回信。">
+  <title>我的8号树 · 田约认采认养人端</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="client.css">
+  <script>
+    if (new URLSearchParams(location.search).get("embed") === "1") {
+      document.documentElement.classList.add("is-embedded");
+    }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+
+  <header class="client-topbar">
+    <a class="client-brand" href="index.html" aria-label="田约认采农户端首页">
+      <span class="client-brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none">
+          <path d="M23.5 14.5C24.2 9.8 28 6.7 32.9 6.2C32.5 11.3 29.5 14.5 23.5 14.5Z" fill="#244936"/>
+          <path d="M22.4 17.2C16.6 16.7 12.4 13 11.2 7.8C17.1 7.7 21.4 11 22.4 17.2Z" fill="#5D7D5A"/>
+          <circle cx="23" cy="28.4" r="12.1" fill="#D96C2F"/>
+          <path d="M18 26.5C20.2 24.9 24.5 24.6 28.3 26.1" stroke="#F8E7CD" stroke-width="1.4" stroke-linecap="round" opacity=".7"/>
+        </svg>
+      </span>
+      <span class="client-brand-copy">
+        <strong>田约认采</strong>
+        <small>认养人端 · 我的果树</small>
+      </span>
+    </a>
+
+    <div class="client-top-actions">
+      <span class="season-chip">2026 产季</span>
+      <a class="top-soft-link" href="https://4mjbg8ayty7n6.doubao.link/app/app_17jfp4e0gc6#home" target="_blank" rel="noopener">
+        原用户端 <span class="tiny-arrow">↗</span>
+      </a>
+      <a class="top-soft-link top-soft-link--back" href="index.html">返回农户端</a>
+      <span class="client-avatar" aria-label="认养人晓龙">晓</span>
+    </div>
+  </header>
+
+  <main class="client-main" id="main">
+    <div class="client-heading">
+      <div class="client-heading-copy">
+        <p class="eyebrow">我的果树 · 团结村 3 号果园</p>
+        <h1 class="client-title">8号树，<em>今天也在。</em></h1>
+        <p class="client-sub">你认养的春见耙耙柑，12 岁。周奶奶替你看着它，你们已经一起走过 <strong id="headlineDays">23</strong> 次。</p>
+      </div>
+      <div class="heading-weather">
+        <span class="weather-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <circle cx="8" cy="8" r="3"/>
+            <path d="M8 2.5v1.2M2.5 8h1.2M3.9 3.9l.9.9M12.1 3.9l-.9.9M8 12.3v1.2M3.9 12.1l.9-.9"/>
+            <path d="M13.4 17.3h4.2a3.2 3.2 0 0 0 .1-6.4 4.6 4.6 0 0 0-8.8 1.2 2.7 2.7 0 0 0 .6 5.2Z"/>
+          </svg>
+        </span>
+        <span>彭山 · 9°C<br><small>果园湿度偏高</small></span>
+      </div>
+    </div>
+
+    <div class="client-layout">
+      <section class="stage-card" aria-labelledby="stage-title">
+        <div class="stage-topline">
+          <span class="stage-location"><span class="location-dot"></span>团结村 · 3号果园</span>
+          <span class="stage-season">第 3 年 · 2026 产季</span>
+        </div>
+
+        <div class="tree-scene" id="treeScene" data-mood="waiting" aria-label="8号树的情绪插画">
+          <div class="scene-sky-glow" aria-hidden="true"></div>
+          <div class="scene-tint" aria-hidden="true"></div>
+          <svg class="tree-svg" viewBox="0 0 760 600" role="img" aria-labelledby="treeSvgTitle treeSvgDesc">
+            <title id="treeSvgTitle">8号树的情感插画</title>
+            <desc id="treeSvgDesc">一棵没有明显人脸的手绘柑橘树，在浅米白与绿色的果园里，通过枝叶和果实表达情绪。</desc>
+            <defs>
+              <filter id="softBlur" x="-30%" y="-30%" width="160%" height="160%">
+                <feGaussianBlur stdDeviation="8"/>
+              </filter>
+              <linearGradient id="barkFill" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#8E6141"/>
+                <stop offset=".6" stop-color="#744B32"/>
+                <stop offset="1" stop-color="#5D3B28"/>
+              </linearGradient>
+              <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0" stop-color="#FFF0BC" stop-opacity=".95"/>
+                <stop offset=".5" stop-color="#FFE5A8" stop-opacity=".4"/>
+                <stop offset="1" stop-color="#FFE5A8" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="blushGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0" stop-color="#F5D4C1" stop-opacity=".34"/>
+                <stop offset="1" stop-color="#F5D4C1" stop-opacity="0"/>
+              </radialGradient>
+              <g id="leafShape">
+                <path d="M0 0C9-12 28-16 42-4C30 10 10 13 0 0Z" fill="currentColor"/>
+                <path d="M3-1C15-4 28-6 39-4" fill="none" stroke="rgba(35,67,38,.25)" stroke-width="1.2" stroke-linecap="round"/>
+              </g>
+              <g id="flowerShape">
+                <circle cx="0" cy="-5.5" r="3.3" fill="#FFFDF1"/>
+                <circle cx="5" cy="0" r="3.3" fill="#FFFDF1"/>
+                <circle cx="1.8" cy="5.6" r="3.3" fill="#FFFDF1"/>
+                <circle cx="-4.8" cy="2.6" r="3.3" fill="#FFFDF1"/>
+                <circle cx="-3.2" cy="-3.8" r="3.3" fill="#FFFDF1"/>
+                <circle cx="0" cy="0" r="2.2" fill="#E8BE67"/>
+              </g>
+              <g id="moteShape">
+                <circle cx="0" cy="0" r="2.1" fill="#FFE4A3"/>
+              </g>
+            </defs>
+
+            <g class="scene-sun">
+              <circle class="sun-glow" cx="604" cy="104" r="96" fill="url(#sunGlow)"/>
+              <circle class="sun-disc" cx="604" cy="104" r="34"/>
+              <circle class="sun-inner" cx="604" cy="104" r="21"/>
+            </g>
+
+            <g class="clouds" aria-hidden="true">
+              <path class="cloud cloud-a" d="M105 126C116 109 145 105 158 120C170 112 191 118 192 137C209 138 219 153 207 164H102C88 155 93 132 111 130Z"/>
+              <path class="cloud cloud-b" d="M486 173C495 161 514 159 523 169C532 160 550 164 552 177C566 178 575 189 566 198H482C470 190 474 174 486 173Z"/>
+            </g>
+
+            <g class="landscape" aria-hidden="true">
+              <path class="hill hill-back" d="M0 390C105 344 190 395 279 373C385 346 468 337 548 360C633 383 699 365 760 349V600H0Z"/>
+              <path class="hill hill-mid" d="M0 435C88 405 166 438 247 425C352 408 428 381 515 402C629 431 690 408 760 389V600H0Z"/>
+              <path class="ground" d="M0 497C94 478 171 492 252 488C356 482 445 463 546 480C639 495 707 484 760 469V600H0Z"/>
+              <path class="ground-line" d="M0 522C127 503 224 524 334 513C453 501 559 483 760 513"/>
+              <path class="ground-line ground-line--soft" d="M0 553C122 535 224 550 341 541C449 533 570 521 760 543"/>
+            </g>
+
+            <g class="tree-shadow" aria-hidden="true">
+              <ellipse cx="392" cy="541" rx="179" ry="22"/>
+            </g>
+            <circle class="shy-halo" cx="390" cy="300" r="265" fill="url(#blushGlow)" aria-hidden="true"/>
+
+            <g class="tree">
+              <g class="branch-layer branch-layer--back">
+                <path class="branch branch-left" d="M373 407C345 382 310 365 273 350C290 347 322 360 348 377C367 389 381 398 388 410Z"/>
+                <path class="branch branch-right" d="M405 381C431 354 462 337 495 322C478 340 456 356 434 374C421 385 412 394 405 407Z"/>
+                <path class="branch branch-left-high" d="M380 359C359 330 349 303 355 274C365 297 377 319 392 340Z"/>
+                <path class="branch branch-right-high" d="M402 346C423 314 440 292 466 271C456 295 441 319 419 347Z"/>
+              </g>
+
+              <g class="trunk-layer">
+                <path class="trunk-main" d="M354 551C340 521 346 491 356 464C365 438 358 408 367 382C372 364 366 346 377 326C383 313 390 304 396 293C403 309 405 326 407 343C410 375 416 397 421 424C427 456 431 493 424 551C401 560 374 560 354 551Z"/>
+                <path class="trunk-light" d="M377 535C370 498 376 464 384 436C391 408 385 378 392 350C397 334 399 320 398 307C405 337 405 358 402 380C398 411 408 440 411 471C414 500 411 526 407 544C395 548 385 544 377 535Z"/>
+                <path class="bark-line" d="M362 510C371 492 370 469 376 449M391 480C395 463 391 444 398 424M371 410C378 396 379 383 382 371M402 378C405 365 406 354 405 343"/>
+                <path class="bark-knot" d="M381 453C372 450 369 458 374 464C380 471 387 468 389 461C391 455 387 452 381 453Z"/>
+              </g>
+
+              <g class="ribbon" aria-hidden="true">
+                <path class="ribbon-band" d="M356 423C374 430 404 431 423 422L426 440C402 449 376 448 353 440Z"/>
+                <path class="ribbon-tail ribbon-tail--one" d="M414 438C436 452 438 469 428 488L414 479C422 462 416 451 403 444Z"/>
+                <path class="ribbon-tail ribbon-tail--two" d="M402 440C388 456 383 473 388 489L402 483C398 468 405 455 413 447Z"/>
+                <circle class="ribbon-knot" cx="407" cy="439" r="7"/>
+              </g>
+
+              <g class="canopy-back">
+                <path d="M190 317C166 278 181 226 219 199C249 174 291 167 329 173C349 139 390 119 431 127C476 134 512 168 525 211C569 220 594 258 588 298C583 336 552 357 518 359C507 391 470 410 435 399C405 420 365 414 342 395C301 415 257 398 240 367C207 365 183 347 190 317Z"/>
+              </g>
+              <g class="canopy-mid">
+                <path d="M245 256C238 211 274 177 315 174C351 144 407 148 436 180C468 172 500 192 511 223C535 244 535 279 518 300C527 331 496 358 461 351C441 380 397 386 368 362C333 380 296 361 287 333C255 334 237 305 245 256Z"/>
+                <path class="canopy-side canopy-side--left" d="M208 306C192 291 195 268 214 255C215 233 233 218 254 222C263 208 283 207 294 220C305 235 300 255 286 264C289 282 274 299 256 300C249 312 231 316 220 307Z"/>
+                <path class="canopy-side canopy-side--right" d="M504 307C489 320 467 320 456 307C437 311 421 296 423 278C410 265 417 243 434 237C439 219 461 211 476 223C493 220 511 232 513 251C531 263 528 289 504 307Z"/>
+              </g>
+              <g class="canopy-front">
+                <path d="M299 290C296 252 327 227 363 233C384 211 425 216 446 244C478 247 498 275 492 307C488 337 463 354 432 352C413 374 375 372 354 350C322 353 300 330 299 290Z"/>
+                <path class="canopy-highlight" d="M323 254C344 237 375 238 395 250C409 232 439 232 451 249C462 264 456 283 441 290C430 304 407 303 394 291C376 299 353 292 345 275C330 278 319 266 323 254Z"/>
+              </g>
+
+              <g class="wings" aria-hidden="true">
+                <g class="wing wing--left">
+                  <path class="wing-branch" d="M286 337C246 328 209 315 166 289"/>
+                  <g class="wing-leaves">
+                    <use href="#leafShape" class="leaf leaf--warm" transform="translate(167 289) rotate(-55) scale(.9)"/>
+                    <use href="#leafShape" class="leaf" transform="translate(146 276) rotate(-94) scale(.76)"/>
+                    <use href="#leafShape" class="leaf leaf--warm" transform="translate(185 302) rotate(8) scale(.74)"/>
+                    <use href="#leafShape" class="leaf" transform="translate(153 306) rotate(-20) scale(.64)"/>
+                  </g>
+                </g>
+                <g class="wing wing--right">
+                  <path class="wing-branch" d="M500 327C542 319 579 301 622 275"/>
+                  <g class="wing-leaves">
+                    <use href="#leafShape" class="leaf" transform="translate(622 275) rotate(-42) scale(.95)"/>
+                    <use href="#leafShape" class="leaf leaf--warm" transform="translate(644 258) rotate(-82) scale(.76)"/>
+                    <use href="#leafShape" class="leaf" transform="translate(601 290) rotate(4) scale(.72)"/>
+                    <use href="#leafShape" class="leaf" transform="translate(637 297) rotate(-16) scale(.64)"/>
+                  </g>
+                </g>
+              </g>
+
+              <g class="waiting-wind" aria-hidden="true">
+                <path d="M100 270C132 259 162 260 185 271"/>
+                <path d="M86 299C122 289 148 290 170 302"/>
+                <path d="M660 242C633 233 609 235 590 245"/>
+              </g>
+
+              <g class="canopy-details" aria-hidden="true">
+                <path class="canopy-scribble" d="M270 214C306 182 351 169 388 179M306 343C337 365 378 366 409 348M461 226C486 242 500 268 497 294M217 290C231 305 246 312 261 315M453 311C468 306 480 296 489 283"/>
+                <path class="canopy-scribble canopy-scribble--soft" d="M353 173C339 195 335 214 338 233M487 224C477 242 470 258 469 276M268 288C282 299 298 307 313 311"/>
+              </g>
+
+              <g class="leaf-layer">
+                <use href="#leafShape" class="leaf leaf--1" transform="translate(218 217) rotate(-58) scale(.95)"/>
+                <use href="#leafShape" class="leaf leaf--2" transform="translate(247 169) rotate(-106) scale(.8)"/>
+                <use href="#leafShape" class="leaf leaf--3" transform="translate(311 153) rotate(-146) scale(.85)"/>
+                <use href="#leafShape" class="leaf leaf--4" transform="translate(363 135) rotate(-166) scale(.9)"/>
+                <use href="#leafShape" class="leaf leaf--5" transform="translate(440 138) rotate(-196) scale(.82)"/>
+                <use href="#leafShape" class="leaf leaf--6" transform="translate(502 168) rotate(-222) scale(.9)"/>
+                <use href="#leafShape" class="leaf leaf--7" transform="translate(547 224) rotate(-254) scale(.85)"/>
+                <use href="#leafShape" class="leaf leaf--8" transform="translate(555 283) rotate(-292) scale(.9)"/>
+                <use href="#leafShape" class="leaf leaf--9" transform="translate(508 349) rotate(-330) scale(.8)"/>
+                <use href="#leafShape" class="leaf leaf--10" transform="translate(455 383) rotate(-12) scale(.85)"/>
+                <use href="#leafShape" class="leaf leaf--11" transform="translate(360 392) rotate(-163) scale(.8)"/>
+                <use href="#leafShape" class="leaf leaf--12" transform="translate(286 363) rotate(-204) scale(.9)"/>
+                <use href="#leafShape" class="leaf leaf--13" transform="translate(230 326) rotate(-237) scale(.8)"/>
+                <use href="#leafShape" class="leaf leaf--14" transform="translate(196 277) rotate(-270) scale(.9)"/>
+                <use href="#leafShape" class="leaf leaf--15" transform="translate(475 203) rotate(-20) scale(.7)"/>
+                <use href="#leafShape" class="leaf leaf--16" transform="translate(325 351) rotate(-80) scale(.68)"/>
+              </g>
+
+              <g class="buds" aria-hidden="true">
+                <path d="M472 258C478 246 490 243 497 250C490 259 480 263 472 258Z"/>
+                <path d="M312 337C305 326 295 327 291 336C299 343 307 344 312 337Z"/>
+              </g>
+
+              <g class="fruits fruits--normal">
+                <g class="fruit" transform="translate(297 300)">
+                  <circle class="fruit-body" r="15"/>
+                  <circle class="fruit-highlight" cx="-4" cy="-5" r="4"/>
+                  <path class="fruit-leaf" d="M1-15C10-24 24-21 27-12C19-5 8-6 1-15Z"/>
+                </g>
+                <g class="fruit" transform="translate(348 266)">
+                  <circle class="fruit-body" r="13"/>
+                  <circle class="fruit-highlight" cx="-3" cy="-4" r="3.4"/>
+                  <path class="fruit-leaf" d="M1-13C9-21 20-18 23-10C16-4 7-5 1-13Z"/>
+                </g>
+                <g class="fruit" transform="translate(430 286)">
+                  <circle class="fruit-body" r="16"/>
+                  <circle class="fruit-highlight" cx="-4" cy="-5" r="4.2"/>
+                  <path class="fruit-leaf" d="M1-16C11-26 25-23 28-13C20-5 9-7 1-16Z"/>
+                </g>
+                <g class="fruit" transform="translate(482 329)">
+                  <circle class="fruit-body" r="12"/>
+                  <circle class="fruit-highlight" cx="-3" cy="-4" r="3"/>
+                  <path class="fruit-leaf" d="M1-12C9-19 19-16 21-8C14-3 6-4 1-12Z"/>
+                </g>
+              </g>
+
+              <g class="fruits fruits--sad">
+                <g class="fruit fruit--faded" transform="translate(323 315)">
+                  <circle class="fruit-body" r="12"/>
+                  <path class="fruit-leaf" d="M1-12C8-18 16-15 18-8C12-3 5-4 1-12Z"/>
+                </g>
+                <g class="fruit fruit--faded" transform="translate(447 311)">
+                  <circle class="fruit-body" r="10"/>
+                  <path class="fruit-leaf" d="M1-10C7-15 14-12 15-6C10-2 4-3 1-10Z"/>
+                </g>
+              </g>
+
+              <g class="fruits fruits--harvest">
+                <g class="fruit" transform="translate(266 292)"><circle class="fruit-body" r="15"/><circle class="fruit-highlight" cx="-4" cy="-5" r="4"/><path class="fruit-leaf" d="M1-15C10-23 22-20 25-11C18-5 8-6 1-15Z"/></g>
+                <g class="fruit" transform="translate(322 255)"><circle class="fruit-body" r="17"/><circle class="fruit-highlight" cx="-5" cy="-6" r="4.5"/><path class="fruit-leaf" d="M1-17C11-26 25-23 28-13C20-5 9-7 1-17Z"/></g>
+                <g class="fruit" transform="translate(384 288)"><circle class="fruit-body" r="16"/><circle class="fruit-highlight" cx="-4" cy="-5" r="4.2"/><path class="fruit-leaf" d="M1-16C10-24 23-21 26-12C18-5 8-7 1-16Z"/></g>
+                <g class="fruit" transform="translate(450 260)"><circle class="fruit-body" r="15"/><circle class="fruit-highlight" cx="-4" cy="-5" r="4"/><path class="fruit-leaf" d="M1-15C9-23 21-20 24-11C17-5 8-6 1-15Z"/></g>
+                <g class="fruit" transform="translate(508 303)"><circle class="fruit-body" r="14"/><circle class="fruit-highlight" cx="-4" cy="-4" r="3.6"/><path class="fruit-leaf" d="M1-14C9-21 20-18 23-10C16-4 7-5 1-14Z"/></g>
+                <g class="fruit" transform="translate(296 342)"><circle class="fruit-body" r="13"/><circle class="fruit-highlight" cx="-3" cy="-4" r="3.2"/><path class="fruit-leaf" d="M1-13C8-20 18-17 20-9C14-4 6-5 1-13Z"/></g>
+                <g class="fruit" transform="translate(401 350)"><circle class="fruit-body" r="14"/><circle class="fruit-highlight" cx="-4" cy="-4" r="3.6"/><path class="fruit-leaf" d="M1-14C9-21 20-18 23-10C16-4 7-5 1-14Z"/></g>
+                <g class="fruit" transform="translate(496 344)"><circle class="fruit-body" r="12"/><circle class="fruit-highlight" cx="-3" cy="-4" r="3"/><path class="fruit-leaf" d="M1-12C8-18 18-15 20-8C14-3 6-4 1-12Z"/></g>
+              </g>
+
+              <g class="droop-leaves" aria-hidden="true">
+                <use href="#leafShape" class="leaf leaf--sad leaf--droop-1" transform="translate(233 309) rotate(42) scale(1.18)"/>
+                <use href="#leafShape" class="leaf leaf--sad leaf--droop-2" transform="translate(292 359) rotate(58) scale(1.05)"/>
+                <use href="#leafShape" class="leaf leaf--sad leaf--droop-3" transform="translate(392 377) rotate(70) scale(1.12)"/>
+                <use href="#leafShape" class="leaf leaf--sad leaf--droop-4" transform="translate(477 350) rotate(82) scale(1.1)"/>
+                <use href="#leafShape" class="leaf leaf--sad leaf--droop-5" transform="translate(523 291) rotate(98) scale(.94)"/>
+                <use href="#leafShape" class="leaf leaf--sad" transform="translate(191 307) rotate(22) scale(.82)"/>
+                <use href="#leafShape" class="leaf leaf--sad" transform="translate(558 314) rotate(105) scale(.8)"/>
+              </g>
+
+              <g class="shy-blooms" aria-hidden="true">
+                <use href="#flowerShape" transform="translate(276 280) scale(.9)"/>
+                <use href="#flowerShape" transform="translate(511 287) scale(.7)"/>
+                <use href="#flowerShape" transform="translate(389 187) scale(.72)"/>
+                <use href="#flowerShape" transform="translate(340 342) scale(.62)"/>
+              </g>
+
+              <g class="new-growth" aria-hidden="true">
+                <use href="#leafShape" class="leaf leaf--new" transform="translate(468 219) rotate(-16) scale(.76)"/>
+                <use href="#leafShape" class="leaf leaf--new" transform="translate(297 230) rotate(-138) scale(.68)"/>
+                <circle class="new-fruit" cx="521" cy="356" r="7"/>
+              </g>
+
+              <g class="happy-sparkles" aria-hidden="true">
+                <path class="sparkle" d="M0-11 2.6-2.6 11 0 2.6 2.6 0 11-2.6 2.6-11 0-2.6-2.6Z" transform="translate(195 218) scale(.95)"/>
+                <path class="sparkle" d="M0-11 2.6-2.6 11 0 2.6 2.6 0 11-2.6 2.6-11 0-2.6-2.6Z" transform="translate(566 208) scale(.78)"/>
+                <path class="sparkle" d="M0-11 2.6-2.6 11 0 2.6 2.6 0 11-2.6 2.6-11 0-2.6-2.6Z" transform="translate(533 371) scale(.6)"/>
+                <path class="sparkle" d="M0-11 2.6-2.6 11 0 2.6 2.6 0 11-2.6 2.6-11 0-2.6-2.6Z" transform="translate(250 148) scale(.62)"/>
+                <path class="sparkle" d="M0-11 2.6-2.6 11 0 2.6 2.6 0 11-2.6 2.6-11 0-2.6-2.6Z" transform="translate(475 162) scale(.44)"/>
+                <circle class="sparkle-dot" cx="282" cy="167" r="3.5"/>
+                <circle class="sparkle-dot" cx="466" cy="139" r="2.8"/>
+                <circle class="sparkle-dot" cx="595" cy="320" r="3"/>
+                <circle class="sparkle-dot" cx="338" cy="385" r="2.4"/>
+              </g>
+
+              <g class="tree-tag" aria-label="8号树木牌">
+                <path class="tag-string" d="M485 236C501 256 510 279 508 302"/>
+                <g transform="translate(486 300) rotate(6)">
+                  <rect class="tag-board" x="0" y="0" width="53" height="31" rx="5"/>
+                  <text class="tag-text" x="26" y="21" text-anchor="middle">8号</text>
+                  <circle class="tag-hole" cx="26" cy="5" r="2.2"/>
+                </g>
+              </g>
+            </g>
+
+            <g class="foreground" aria-hidden="true">
+              <path class="grass grass-a" d="M120 536C115 514 123 503 132 496C127 516 133 525 146 536Z"/>
+              <path class="grass grass-b" d="M145 539C148 517 160 507 170 504C160 520 163 531 175 539Z"/>
+              <path class="grass grass-c" d="M609 532C606 509 615 500 625 492C618 511 623 523 636 532Z"/>
+              <path class="grass grass-d" d="M638 538C643 517 654 510 662 507C654 523 658 532 668 539Z"/>
+              <use href="#flowerShape" transform="translate(143 540) scale(.7)"/>
+              <use href="#flowerShape" transform="translate(628 544) scale(.8)"/>
+              <circle class="pebble pebble-a" cx="205" cy="563" r="4"/>
+              <circle class="pebble pebble-b" cx="540" cy="567" r="3"/>
+              <path class="path-stone" d="M450 560C478 553 512 553 536 559C523 568 477 571 450 560Z"/>
+
+              <g class="basket">
+                <path class="basket-body" d="M522 510C523 532 536 549 560 549C584 549 596 532 598 510Z"/>
+                <path class="basket-rim" d="M516 505C538 498 580 498 604 505L601 516C577 523 540 523 519 516Z"/>
+                <g class="basket-fruits">
+                  <circle cx="540" cy="505" r="10"/><circle cx="558" cy="501" r="11"/><circle cx="576" cy="506" r="9"/>
+                  <circle cx="549" cy="493" r="9"/><circle cx="569" cy="494" r="8"/>
+                </g>
+                <path class="basket-line" d="M535 519L538 536M552 520L554 540M570 520L568 539M584 519L580 534"/>
+              </g>
+            </g>
+
+            <g class="motes" aria-hidden="true">
+              <use href="#moteShape" class="mote mote-1" transform="translate(208 236)"/>
+              <use href="#moteShape" class="mote mote-2" transform="translate(545 254)"/>
+              <use href="#moteShape" class="mote mote-3" transform="translate(354 129)"/>
+              <use href="#moteShape" class="mote mote-4" transform="translate(480 214)"/>
+              <use href="#moteShape" class="mote mote-5" transform="translate(258 366)"/>
+            </g>
+          </svg>
+
+          <div class="scene-light" aria-hidden="true"></div>
+          <div class="scene-vignette" aria-hidden="true"></div>
+          <div class="scene-particles" id="sceneParticles" aria-hidden="true"></div>
+          <div class="joy-petals" aria-hidden="true">
+            <span style="--x: 18%; --y: 32%; --delay: -0.5s; --drift: 12px"></span>
+            <span style="--x: 74%; --y: 23%; --delay: -2.2s; --drift: -16px"></span>
+            <span style="--x: 84%; --y: 48%; --delay: -4.1s; --drift: 8px"></span>
+            <span style="--x: 11%; --y: 57%; --delay: -1.3s; --drift: 14px"></span>
+            <span style="--x: 63%; --y: 17%; --delay: -3.4s; --drift: -9px"></span>
+            <span style="--x: 46%; --y: 11%; --delay: -5.2s; --drift: 6px"></span>
+          </div>
+
+          <div class="tree-speech" id="treeSpeech" role="status" aria-live="polite">
+            <span class="speech-name">8号树说</span>
+            <p id="treeQuote">今天也在等你。</p>
+            <span class="speech-tail"></span>
+          </div>
+
+          <div class="scene-hint">轻触树冠，听它说句话</div>
+        </div>
+
+        <div class="stage-info">
+          <div class="stage-info-main">
+            <div class="tree-name-line">
+              <h2 id="stage-title">团结村 8 号树</h2>
+              <span class="mood-pill" id="moodPill"><span class="pill-leaf"></span>等待中</span>
+            </div>
+            <p>春见耙耙柑 · 12 年树龄 · 守树人 周桂芳</p>
+          </div>
+          <div class="stage-mini-facts">
+            <div><strong>60<small>斤</small></strong><span>预估收成</span></div>
+            <div><strong>12.20</strong><span>开园采摘</span></div>
+            <div><strong>6.8<small>km</small></strong><span>离你学校</span></div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="client-panel">
+        <section class="companion-card card">
+          <div class="card-kicker">今天也来坐一会儿</div>
+          <h2>树记得每一次<br><em>你来看它。</em></h2>
+          <p class="companion-intro">不用做什么大事，来树下待一会儿、说一句话，它就会悄悄长出新的叶子。</p>
+
+          <div class="companion-stats">
+            <div><span>连续陪伴</span><strong><span id="streakDays">9</span><small>天</small></strong></div>
+            <div><span>一起走过</span><strong><span id="totalVisits">23</span><small>次</small></strong></div>
+            <div><span>助农值</span><strong>386</strong></div>
+          </div>
+
+          <button class="companion-btn" id="companionBtn" type="button">
+            <span class="companion-btn-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 21V10M12 12C8.4 12 5.8 9.4 5.8 5.8C9.4 5.8 12 8.4 12 12ZM12 8.6C12 5.4 14.2 3.2 17.4 3.2C17.4 6.4 15.2 8.6 12 8.6Z"/>
+                <path d="M7 21h10"/>
+              </svg>
+            </span>
+            <span><strong id="companionBtnTitle">来树下坐一会儿</strong><small id="companionBtnSub">今天还没有见过它</small></span>
+            <span class="companion-btn-arrow">→</span>
+          </button>
+          <p class="micro-note" id="companionNote">每天来一次，它会记住你。</p>
+        </section>
+
+        <section class="growth-card card">
+          <div class="card-headline">
+            <div>
+              <div class="card-kicker">你们的生长线</div>
+              <h2>第 <span id="growthStage">4</span> 程 · 结果</h2>
+            </div>
+            <span class="growth-date">12 月 · 等甜</span>
+          </div>
+          <div class="growth-steps" id="growthSteps" aria-label="果树成长阶段">
+            <div class="growth-step"><i></i><span>幼苗</span></div>
+            <div class="growth-step"><i></i><span>长叶</span></div>
+            <div class="growth-step"><i></i><span>开花</span></div>
+            <div class="growth-step is-current"><i></i><span>结果</span></div>
+            <div class="growth-step"><i></i><span>繁茂</span></div>
+          </div>
+          <p class="growth-note" id="growthNote">再陪它 3 次，就走进“繁茂大树”。</p>
+        </section>
+
+        <section class="message-card card">
+          <div class="card-headline">
+            <div>
+              <div class="card-kicker">树洞</div>
+              <h2>说句话给它听</h2>
+            </div>
+            <span class="message-soft">它会回应你</span>
+          </div>
+          <div class="quick-messages" role="group" aria-label="快捷留言">
+            <button type="button" data-quick="今天有点累">今天有点累</button>
+            <button type="button" data-quick="想看看果子">想看看果子</button>
+            <button type="button" data-quick="周奶奶辛苦了">周奶奶辛苦了</button>
+            <button type="button" data-quick="等冬天见">等冬天见</button>
+          </div>
+          <form class="message-form" id="messageForm">
+            <label class="sr-only" for="messageInput">给8号树留言</label>
+            <input id="messageInput" type="text" autocomplete="off" maxlength="80" placeholder="今天发生了什么，想说给它听…">
+            <button type="submit" aria-label="发送留言">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m20.5 3.5-8 17-3-7.5-7.5-3z"/><path d="M20.5 3.5 9.5 13"/></svg>
+            </button>
+          </form>
+          <div class="echo-list" id="echoList">
+            <div class="echo-placeholder">树洞还很安静。说一句，它会听见。</div>
+          </div>
+        </section>
+
+        <section class="caregiver-card card">
+          <img src="assets/farmer-avatar.webp" alt="守树人周桂芳">
+          <div>
+            <span class="card-kicker">替你守树的人</span>
+            <strong>周桂芳 · 团结村</strong>
+            <p>种了 38 年柑橘。今天也替你去看过 8 号树。</p>
+          </div>
+          <span class="caregiver-heart" aria-hidden="true">♡</span>
+        </section>
+      </aside>
+    </div>
+
+    <section class="mood-gallery card" aria-labelledby="mood-title">
+      <div class="mood-gallery-head">
+        <div>
+          <div class="card-kicker">心情图鉴 · 点一下看看它</div>
+          <h2 id="mood-title">它的心情，都写在枝叶里。</h2>
+        </div>
+        <p>树冠姿态、果实状态与光影，<br>都是它在回应你。</p>
+      </div>
+      <div class="mood-strip" id="moodButtons" role="group" aria-label="切换树的情绪状态">
+        <button class="mood-option" data-mood="waiting" type="button">
+          <span class="mood-dot mood-dot--waiting"></span><span><strong>等待</strong><small>望向田埂</small></span>
+        </button>
+        <button class="mood-option" data-mood="happy" type="button">
+          <span class="mood-dot mood-dot--happy"></span><span><strong>开心</strong><small>叶片上扬</small></span>
+        </button>
+        <button class="mood-option" data-mood="shy" type="button">
+          <span class="mood-dot mood-dot--shy"></span><span><strong>初见</strong><small>有一点害羞</small></span>
+        </button>
+        <button class="mood-option" data-mood="sad" type="button">
+          <span class="mood-dot mood-dot--sad"></span><span><strong>想念</strong><small>轻轻垂叶</small></span>
+        </button>
+        <button class="mood-option" data-mood="harvest" type="button">
+          <span class="mood-dot mood-dot--harvest"></span><span><strong>收获</strong><small>一起变甜</small></span>
+        </button>
+      </div>
+      <p class="mood-note">演示版可以手动切换；正式版会根据你的陪伴、留言与断签自动变化。</p>
+    </section>
+
+    <footer class="client-footer">
+      <p><strong>田约认采</strong> · 让每一棵真实果树，都找到年轻的主人</p>
+      <p>五行山项目组 · 四川大学锦江学院 · 交互演示版</p>
+      <button type="button" id="resetDemo">重置陪伴演示</button>
+    </footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="client.js"></script>
+</body>
+</html>
