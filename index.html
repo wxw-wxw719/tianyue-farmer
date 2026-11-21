@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#F7F3EA">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="田约认采农户端工作台：发布果园动态、管理认养订单与果树、提现收益，让每一棵真实果树都被好好看见。">
+  <meta property="og:title" content="田约认采 · 农户工作台">
+  <meta property="og:description" content="认养预定 + 团购兜底，让每一棵真实果树都被好好看见。">
+  <title>田约认采 · 农户工作台</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" as="image" href="assets/orchard-wide.webp">
+  <link rel="preload" as="image" href="assets/farmer-avatar.webp">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#view">跳到主要内容</a>
+
+  <div class="app-shell">
+    <aside class="rail" aria-label="农户端侧边导航">
+      <a class="brand" href="#home" data-route="home" aria-label="田约认采农户端首页">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none">
+            <path d="M23.5 14.5C24.2 9.8 28 6.7 32.9 6.2C32.5 11.3 29.5 14.5 23.5 14.5Z" fill="#244936"/>
+            <path d="M22.4 17.2C16.6 16.7 12.4 13 11.2 7.8C17.1 7.7 21.4 11 22.4 17.2Z" fill="#5D7D5A"/>
+            <circle cx="23" cy="28.4" r="12.1" fill="#D96C2F"/>
+            <path d="M18 26.5C20.2 24.9 24.5 24.6 28.3 26.1" stroke="#F8E7CD" stroke-width="1.4" stroke-linecap="round" opacity=".7"/>
+            <circle cx="18.3" cy="28.8" r="1" fill="#F8E7CD" opacity=".6"/>
+          </svg>
+        </span>
+        <span class="brand-copy">
+          <strong>田约认采</strong>
+          <small>农户工作台</small>
+        </span>
+      </a>
+
+      <div class="rail-orchard">
+        <img src="assets/farmer-avatar.webp" alt="" class="rail-avatar">
+        <div class="rail-orchard-copy">
+          <strong>周桂芳</strong>
+          <span>团结村 3 号果园</span>
+        </div>
+        <button class="icon-btn icon-btn--dark" data-action="notifications" aria-label="查看通知">
+          <span class="icon" data-icon="bell"></span>
+          <span class="dot-badge" data-notif-badge hidden>3</span>
+        </button>
+      </div>
+
+      <nav class="rail-nav" aria-label="主要功能">
+        <a href="#home" data-route="home" class="rail-link">
+          <span class="icon" data-icon="home"></span><span>工作台</span>
+        </a>
+        <a href="#feed" data-route="feed" class="rail-link">
+          <span class="icon" data-icon="camera"></span><span>果园动态</span>
+        </a>
+        <a href="#orders" data-route="orders" class="rail-link">
+          <span class="icon" data-icon="receipt"></span><span>认养订单</span>
+          <span class="rail-count">12</span>
+        </a>
+        <a href="#trees" data-route="trees" class="rail-link">
+          <span class="icon" data-icon="tree"></span><span>我的果树</span>
+        </a>
+        <p class="rail-group">经营</p>
+        <a href="#wallet" data-route="wallet" class="rail-link">
+          <span class="icon" data-icon="wallet"></span><span>收益钱包</span>
+        </a>
+        <a href="#live" data-route="live" class="rail-link">
+          <span class="icon" data-icon="broadcast"></span><span>直播助手</span>
+          <span class="live-dot" aria-hidden="true"></span>
+        </a>
+        <a href="#me" data-route="me" class="rail-link">
+          <span class="icon" data-icon="user"></span><span>我的</span>
+        </a>
+      </nav>
+
+      <div class="rail-foot">
+        <a class="switch-user" href="https://4mjbg8ayty7n6.doubao.link/app/app_17jfp4e0gc6#home" target="_blank" rel="noopener">
+          切回用户端 <span class="icon" data-icon="arrow-up-right"></span>
+        </a>
+        <p>五行山项目组 · 四川大学锦江学院</p>
+        <p class="rail-demo">交互演示版 · 数据保存在本机</p>
+      </div>
+    </aside>
+
+    <div class="workspace">
+      <header class="topbar">
+        <div class="crumb" aria-label="面包屑">
+          <span>农户端</span>
+          <span class="crumb-sep">/</span>
+          <strong id="crumb-current">工作台</strong>
+        </div>
+        <div class="topbar-actions">
+          <div class="weather-pill" title="彭山区黄丰镇今日天气">
+            <span class="icon" data-icon="cloud-sun"></span>
+            <span>彭山 9°C · 阴</span>
+            <span class="weather-divider"></span>
+            <span class="weather-tip">果园湿度偏高</span>
+          </div>
+          <button class="icon-btn topbar-icon" data-action="notifications" aria-label="查看通知">
+            <span class="icon" data-icon="bell"></span>
+            <span class="dot-badge" data-notif-badge hidden>3</span>
+          </button>
+          <button class="topbar-profile" data-route="me" aria-label="打开我的页面">
+            <img src="assets/farmer-avatar.webp" alt="周桂芳">
+            <span>周桂芳</span>
+          </button>
+        </div>
+      </header>
+
+      <main id="view" class="view" tabindex="-1"></main>
+
+      <nav class="tabbar" aria-label="底部导航">
+        <a href="#home" data-route="home" class="tab-link">
+          <span class="tab-icon"><span class="icon" data-icon="home"></span></span><span>工作台</span>
+        </a>
+        <a href="#feed" data-route="feed" class="tab-link">
+          <span class="tab-icon"><span class="icon" data-icon="camera"></span></span><span>动态</span>
+        </a>
+        <a href="#orders" data-route="orders" class="tab-link">
+          <span class="tab-icon"><span class="icon" data-icon="receipt"></span><span class="tab-badge">12</span></span><span>订单</span>
+        </a>
+        <a href="#trees" data-route="trees" class="tab-link">
+          <span class="tab-icon"><span class="icon" data-icon="tree"></span></span><span>果树</span>
+        </a>
+        <a href="#me" data-route="me" class="tab-link">
+          <span class="tab-icon"><span class="icon" data-icon="user"></span></span><span>我的</span>
+        </a>
+      </nav>
+    </div>
+  </div>
+
+  <div id="overlay-root"></div>
+  <div id="toast-root" class="toast-root" aria-live="polite" aria-atomic="false"></div>
+
+  <noscript>
+    <div class="noscript">请开启 JavaScript，以使用田约认采农户工作台。</div>
+  </noscript>
+
+  <script src="app.js"></script>
+</body>
+</html>
