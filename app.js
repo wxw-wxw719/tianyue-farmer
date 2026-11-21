@@ -1474,7 +1474,7 @@
               <div class="settings-card">
                 ${settingsRow({ icon: "users", title: "联系平台运营", sub: "工作日 9:00–18:00", action: "open-contact-help" })}
                 ${settingsRow({ icon: "help-circle", title: "帮助中心", sub: "常见问题与操作说明", action: "open-help" })}
-                ${settingsRow({ icon: "smartphone", title: "切回用户端", sub: "预览大学生认养界面", href: "https://4mjbg8ayty7n6.doubao.link/app/app_17jfp4e0gc6#home", tone: "blue" })}
+                ${settingsRow({ icon: "smartphone", title: "切回用户端", sub: "看看 8 号树今天的心情", href: "client.html", tone: "blue" })}
               </div>
             </section>
           </div>
