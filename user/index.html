@@ -1,0 +1,1947 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>田约认采 · 认养人工作台</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+<style>
+:root{
+  --cream:#F5F1E8; --cream2:#EFEADA; --card:#FFFFFF; --line:#EAE4D5; --line2:#F0EADA;
+  --ink:#28301F; --ink2:#5C6152; --mute:#8E8D7C;
+  --green:#22392B; --green2:#2C4A35; --leaf:#4C6B47; --leaf2:#7C9A6E;
+  --orange:#C0521E; --orange2:#E3733D; --peach:#FBEEE0; --peach2:#F6E2CC;
+  --radius:18px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;min-height:100%}
+body{
+  background:var(--cream); color:var(--ink);
+  font-family:'Noto Sans SC',-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;
+  -webkit-font-smoothing:antialiased;
+  display:flex; min-height:100vh;
+}
+a{text-decoration:none;color:inherit}
+
+/* ---------- 侧栏 ---------- */
+.side{
+  width:286px;flex:0 0 286px;background:var(--green);color:#fff;
+  display:flex;flex-direction:column;padding:22px 16px 16px;position:sticky;top:0;height:100vh;
+  background-image:radial-gradient(120% 60% at 0% 8%,rgba(255,255,255,.06),transparent 60%),
+                    radial-gradient(80% 40% at 100% 100%,rgba(120,160,110,.10),transparent 70%);
+}
+.brand{display:flex;align-items:center;gap:10px;padding:2px 6px 18px}
+.brand .logo{width:40px;height:40px;border-radius:11px;background:var(--cream);display:flex;align-items:center;justify-content:center;flex:0 0 40px}
+.brand .logo svg{width:22px;height:22px}
+.brand .nm{font-size:17px;font-weight:700;letter-spacing:.5px;line-height:1.1}
+.brand .rl{font-size:10px;color:rgba(255,255,255,.52);letter-spacing:1.4px;margin-top:3px}
+.usercard{display:flex;align-items:center;gap:10px;padding:10px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);border-radius:13px;margin-bottom:18px}
+.av{width:35px;height:35px;border-radius:9px;background:#EDE4CF;color:#7A6A45;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;flex:0 0 35px}
+.av.sm{width:26px;height:26px;border-radius:50%;font-size:12px;flex:0 0 26px}
+.usercard .u{flex:1;min-width:0}
+.usercard .u b{display:block;font-size:13px;font-weight:500;letter-spacing:.3px}
+.usercard .u span{display:block;font-size:10.5px;color:rgba(255,255,255,.5);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bellsm{width:24px;height:24px;border-radius:50%;border:1px solid rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center;position:relative;flex:0 0 24px}
+.bellsm svg{width:12px;height:12px;stroke:rgba(255,255,255,.7);fill:none;stroke-width:1.5}
+.bellsm .dot{position:absolute;top:-4px;right:-5px;min-width:14px;height:14px;border-radius:9px;background:var(--orange2);font-size:9px;line-height:14px;text-align:center;font-weight:700;color:#fff;padding:0 3px}
+
+.nav{display:flex;flex-direction:column;gap:2px}
+.nav a{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:10px;font-size:13px;color:rgba(255,255,255,.74);position:relative;transition:.16s}
+.nav a svg{width:16px;height:16px;stroke:rgba(255,255,255,.62);fill:none;stroke-width:1.5;flex:0 0 16px}
+.nav a:hover{background:rgba(255,255,255,.06);color:#fff}
+.nav a.on{background:rgba(255,255,255,.11);color:#fff;font-weight:500}
+.nav a.on svg{stroke:#fff}
+.nav a.on::before{content:'';position:absolute;left:0;top:9px;bottom:9px;width:2.5px;border-radius:2px;background:var(--orange2)}
+.nav a .cnt{margin-left:auto;font-size:10.5px;color:rgba(255,255,255,.55);font-weight:400}
+.navlbl{font-size:10.5px;letter-spacing:1.6px;color:rgba(255,255,255,.34);padding:18px 12px 8px}
+.sidefoot{margin-top:auto;padding:14px 10px 2px;border-top:1px solid rgba(255,255,255,.09)}
+.sidefoot a{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.66)}
+.sidefoot a svg{width:12px;height:12px;stroke:currentColor;fill:none}
+.sidefoot p{font-size:9.5px;line-height:1.7;color:rgba(255,255,255,.3);margin:10px 0 0}
+
+/* ---------- 主区 ---------- */
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+.topbar{display:flex;align-items:center;gap:14px;height:66px;padding:0 44px;border-bottom:1px solid rgba(40,48,31,.08);background:rgba(245,241,232,.86);backdrop-filter:blur(6px);position:sticky;top:0;z-index:20}
+.crumb{font-size:12.5px;color:var(--mute);letter-spacing:.3px}
+.crumb b{color:#3C4632;font-weight:500}
+.crumb i{font-style:normal;margin:0 7px;opacity:.5}
+.topright{margin-left:auto;display:flex;align-items:center;gap:10px}
+.wpill{display:flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 13px;font-size:11.5px;color:#6B7060;white-space:nowrap}
+.wpill b{font-weight:500;color:#3C4632}
+.wpill svg{width:13px;height:13px;stroke:#B08242;fill:none;stroke-width:1.4}
+.ibtn{width:34px;height:34px;border-radius:50%;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer}
+.ibtn svg{width:15px;height:15px;stroke:#5C6152;fill:none;stroke-width:1.5}
+.ibtn .dot{position:absolute;top:-3px;right:-3px;min-width:15px;height:15px;border-radius:9px;background:var(--orange2);color:#fff;font-size:9px;line-height:15px;text-align:center;font-weight:700;padding:0 3px;border:1.5px solid var(--cream)}
+.me{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:4px 12px 4px 4px;font-size:12px;color:#3C4632;cursor:pointer}
+
+.wrap{padding:34px 44px 70px;max-width:1360px;width:100%}
+.greet{margin-bottom:26px}
+.greet .dt{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--mute);margin-bottom:12px}
+.greet .dt svg{width:12px;height:12px;stroke:currentColor;fill:none}
+.greet h1{font-size:40px;line-height:1.24;margin:0 0 10px;font-weight:600;letter-spacing:.5px;color:#2B3323;font-family:'Noto Serif SC',Georgia,serif}
+.greet h1 em{font-style:normal;color:var(--orange)}
+.greet p{margin:0;font-size:13.5px;color:#7E8272;line-height:1.9}
+
+.stats{display:grid;grid-template-columns:1.15fr .95fr 1fr;gap:16px;margin-bottom:16px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px 18px;position:relative;transition:.2s}
+.stat:hover{box-shadow:0 8px 24px rgba(40,48,31,.06);transform:translateY(-1px)}
+.stat .ico{position:absolute;top:18px;right:18px;width:26px;height:26px;display:flex;align-items:center;justify-content:center}
+.stat .ico svg{width:17px;height:17px;stroke:#B9744A;fill:none;stroke-width:1.4}
+.stat .k{font-size:12px;color:#7E8272;letter-spacing:.4px}
+.stat .num{font-size:38px;font-weight:600;line-height:1.2;margin:10px 0 6px;font-family:'Noto Serif SC',Georgia,serif;letter-spacing:-.5px}
+.stat .num small{font-size:14px;font-weight:400;margin-left:4px;color:#6B7060}
+.stat .note{font-size:11px;color:var(--mute);display:flex;align-items:center;gap:5px}
+.stat.warm{background:var(--peach);border-color:var(--peach2)}
+.stat.warm .num{color:#4A3A28}
+
+.acts{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:18px}
+.act{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:.18s}
+.act:hover{border-color:#D8CFB6;transform:translateY(-1px);box-shadow:0 6px 18px rgba(40,48,31,.05)}
+.act .tile{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex:0 0 36px;background:var(--cream2)}
+.act .tile svg{width:17px;height:17px;stroke:#6B6248;fill:none;stroke-width:1.5}
+.act .tile.orange{background:var(--peach)}
+.act .tile.orange svg{stroke:var(--orange)}
+.act .tile.green{background:#E8EFE3}
+.act .tile.green svg{stroke:var(--leaf)}
+.act .tile.blue{background:#E9EEF2}
+.act .tile.blue svg{stroke:#5C7E96}
+.act b{display:block;font-size:13.5px;font-weight:500;color:#333B2B}
+.act span{display:block;font-size:11px;color:var(--mute);margin-top:3px}
+
+.hero-grid{display:grid;grid-template-columns:1.72fr .98fr;gap:18px;margin-bottom:18px}
+.feature{position:relative;border-radius:20px;overflow:hidden;min-height:400px;display:flex;align-items:flex-end;color:#fff}
+.feature>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.feature::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,20,14,.10) 0%,rgba(12,20,14,.22) 42%,rgba(12,20,14,.80) 100%)}
+.feature .in{position:relative;z-index:2;padding:26px 30px;width:100%}
+.chip{display:inline-flex;align-items:center;gap:6px;background:rgba(20,30,20,.48);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(6px);border-radius:999px;padding:6px 12px;font-size:11px;color:#F3EFE2}
+.chip svg{width:12px;height:12px;stroke:#DCE6C8;fill:none}
+.feature .corner{position:absolute;top:22px;left:26px;z-index:2}
+.feature .corner2{position:absolute;top:24px;right:26px;z-index:2;font-size:10.5px;color:rgba(255,255,255,.62)}
+.feature h2{font-size:36px;line-height:1.36;margin:44px 0 10px;font-weight:600;letter-spacing:.5px;font-family:'Noto Serif SC',Georgia,serif;text-shadow:0 2px 18px rgba(0,0,0,.25)}
+.feature p{font-size:12px;color:rgba(255,255,255,.72);margin:0 0 18px;letter-spacing:.2px}
+.fbtn{display:inline-flex;align-items:center;gap:7px;background:#fff;color:#2B3323;border-radius:999px;padding:10px 18px;font-size:12.5px;font-weight:500;cursor:pointer;border:none;font-family:inherit}
+.fbtn:hover{background:#F7F2E4}
+.fbtn svg{width:13px;height:13px;stroke:#2B3323;fill:none;stroke-width:1.6}
+.mates{position:absolute;right:26px;bottom:26px;z-index:2;display:flex;align-items:center;gap:9px;font-size:11px;color:rgba(255,255,255,.8)}
+.mates img{width:30px;height:30px;border-radius:50%;border:2px solid rgba(255,255,255,.85);object-fit:cover}
+.mates b{display:block;font-size:11px;color:#fff;font-weight:500}
+.mates span{display:block;font-size:10px;color:rgba(255,255,255,.62)}
+
+.aside-card{position:relative;border-radius:20px;overflow:hidden;display:flex;align-items:flex-end;min-height:400px}
+.aside-card>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.aside-card::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,20,14,.18) 0%,rgba(12,20,14,.30) 40%,rgba(12,20,14,.85) 100%)}
+.aside-card .in{position:relative;z-index:2;padding:22px;width:100%;color:#fff}
+.aside-card .live{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:4px 10px;font-size:10px}
+.aside-card .live em{width:5px;height:5px;border-radius:50%;background:#FF7A45;font-style:normal}
+.aside-card h3{font-size:23px;margin:78px 0 6px;font-weight:600;font-family:'Noto Serif SC',Georgia,serif;line-height:1.4}
+.aside-card p{font-size:11px;color:rgba(255,255,255,.7);margin:0}
+.aside-card .row{display:flex;align-items:center;justify-content:space-between;margin-top:16px}
+
+.cols{display:grid;grid-template-columns:1.2fr 1fr;gap:18px;margin-bottom:18px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px}
+.panel .ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.panel .ph h3{font-size:15px;margin:0;font-weight:600;letter-spacing:.3px;color:#333B2B}
+.panel .ph span{font-size:11.5px;color:var(--mute);cursor:pointer}
+.panel .ph span:hover{color:var(--orange)}
+.kv{display:flex;gap:14px;flex-wrap:wrap}
+.kv .item{flex:1;min-width:104px;background:var(--cream);border-radius:12px;padding:12px 14px}
+.kv .item i{font-style:normal;font-size:10.5px;color:var(--mute);display:block;margin-bottom:6px}
+.kv .item b{font-size:16px;font-weight:600;font-family:'Noto Serif SC',Georgia,serif}
+.kv .item b small{font-size:10.5px;font-weight:400;margin-left:2px;color:#7E8272}
+
+.tl{display:flex;align-items:flex-start;gap:0;margin-top:6px}
+.tl .n{flex:1;position:relative;text-align:center}
+.tl .n::before{content:'';position:absolute;top:9px;left:50%;width:100%;height:1px;background:var(--line);z-index:1}
+.tl .n:last-child::before{display:none}
+.tl .dot{width:19px;height:19px;border-radius:50%;border:1.5px solid #D6D0BC;background:#fff;margin:0 auto 9px;position:relative;z-index:2;display:flex;align-items:center;justify-content:center}
+.tl .dot svg{width:9px;height:9px;stroke:#fff;fill:none;stroke-width:2.4;display:none}
+.tl .n.done .dot{background:var(--leaf);border-color:var(--leaf)}
+.tl .n.done .dot svg{display:block}
+.tl .n.now .dot{background:#fff;border-color:var(--orange);border-width:2.5px;box-shadow:0 0 0 4px rgba(192,82,30,.12)}
+.tl .n b{display:block;font-size:12px;font-weight:500;color:#3C4632}
+.tl .n em{display:block;font-style:normal;font-size:10.5px;color:var(--mute);margin-top:3px}
+.tl .n.now em{color:var(--orange);font-weight:500}
+
+.media{display:flex;gap:14px;align-items:center;background:var(--cream);border-radius:13px;padding:10px;margin-bottom:12px}
+.media img{width:96px;height:66px;border-radius:9px;object-fit:cover;flex:0 0 96px}
+.media .c b{display:block;font-size:12.5px;font-weight:500;margin-bottom:4px}
+.media .c span{font-size:11px;color:var(--mute);line-height:1.6}
+.media .play{margin-left:auto;width:30px;height:30px;border-radius:50%;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;flex:0 0 30px;cursor:pointer}
+.media .play svg{width:11px;height:11px;fill:#6B6248;stroke:none;margin-left:1px}
+
+.task{display:flex;align-items:center;gap:12px;border:1px dashed #DED6C0;border-radius:13px;padding:12px 14px;background:#FDFCF7}
+.task .tic{width:30px;height:30px;border-radius:9px;background:#F3EFE1;display:flex;align-items:center;justify-content:center;flex:0 0 30px}
+.task .tic svg{width:14px;height:14px;stroke:#8C7A4E;fill:none}
+.task b{display:block;font-size:12px}
+.task span{display:block;font-size:10.5px;color:var(--mute);margin-top:2px}
+.task button{margin-left:auto;border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 12px;font-size:11px;cursor:pointer;font-family:inherit;color:#4A5340}
+.task button:hover{border-color:var(--orange);color:var(--orange)}
+
+.feed{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.post{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.post .ph2{position:relative;height:150px}
+.post .ph2 img{width:100%;height:100%;object-fit:cover;display:block}
+.post .tag{position:absolute;left:10px;top:10px;background:rgba(20,26,18,.55);color:#fff;font-size:10px;padding:4px 8px;border-radius:6px;backdrop-filter:blur(4px)}
+.post .dur{position:absolute;right:10px;top:10px;color:#fff;font-size:10px;background:rgba(20,26,18,.55);padding:3px 7px;border-radius:5px}
+.post .bd{padding:14px 16px 16px}
+.post .who{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.post .who img{width:22px;height:22px;border-radius:50%;object-fit:cover}
+.post .who b{font-size:11.5px;font-weight:500}
+.post .who span{font-size:10px;color:var(--mute)}
+.post p{margin:0;font-size:11.5px;line-height:1.85;color:#5C6152}
+.post .act2{display:flex;gap:14px;margin-top:12px;font-size:10.5px;color:var(--mute)}
+.post .act2 span{cursor:pointer}
+.post .act2 span:hover{color:var(--orange)}
+
+.btn{display:inline-flex;align-items:center;gap:7px;border-radius:999px;padding:10px 18px;font-size:12.5px;font-family:inherit;cursor:pointer;border:1px solid var(--line);background:#fff;color:#3C4632}
+.btn:hover{border-color:#D8CFB6}
+.btn.primary{background:var(--green);color:#fff;border-color:var(--green)}
+.btn.primary:hover{background:#2C4A35}
+.btn.orange{background:var(--orange);color:#fff;border-color:var(--orange)}
+.btn.orange:hover{background:#D0611F}
+.btn.sm{padding:7px 13px;font-size:11.5px}
+.btn svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.6}
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;padding:4px 9px;border-radius:999px;background:#F1EFE3;color:#6B7060;cursor:pointer}
+.badge.green{background:#E8EFE3;color:#4C6B47}
+.badge.orange{background:var(--peach);color:#B26B3E}
+
+.tbl{width:100%;border-collapse:collapse;font-size:12.5px}
+.tbl th{text-align:left;font-weight:500;color:#7E8272;font-size:11.5px;padding:10px 12px;border-bottom:1px solid var(--line);background:#FBF9F2}
+.tbl td{padding:11px 12px;border-bottom:1px solid var(--line2);color:#454E3C;line-height:1.7}
+.tbl tr:last-child td{border-bottom:none}
+
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.tree{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:.18s;cursor:pointer}
+.tree:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(40,48,31,.07);border-color:#DBD2B9}
+.tree .im{height:132px;position:relative}
+.tree .im img{width:100%;height:100%;object-fit:cover;display:block}
+.tree .im .tagx{position:absolute;left:10px;bottom:10px;background:rgba(255,255,255,.92);border-radius:999px;padding:3px 9px;font-size:10px;color:#4C6B47;font-weight:500}
+.tree .bd{padding:14px 16px 16px}
+.tree .bd h4{margin:0 0 6px;font-size:13.5px;font-weight:600}
+.tree .meta{font-size:11px;color:var(--mute);line-height:1.9}
+.tree .foot{display:flex;align-items:center;justify-content:space-between;margin-top:12px}
+.tree .price{font-size:17px;font-weight:600;font-family:'Noto Serif SC',Georgia,serif;color:#33291F}
+.tree .price small{font-size:10.5px;font-weight:400;color:var(--mute)}
+
+.field{margin-bottom:20px}
+.field label{display:block;font-size:12.5px;color:#4A5340;margin-bottom:8px;font-weight:500}
+.inp{width:100%;border:1px solid var(--line);border-radius:11px;padding:11px 13px;font-size:13px;font-family:inherit;background:#fff;color:var(--ink);outline:none}
+.inp:focus{border-color:#C7BF9F;box-shadow:0 0 0 3px rgba(192,82,30,.07)}
+.plaque{border-radius:12px;padding:16px;text-align:center;background:linear-gradient(160deg,#F7EBD8,#EEDFC5);border:1px solid #E3D3B4;font-family:'Noto Serif SC',Georgia,serif;font-size:16px;color:#6B4A26;letter-spacing:2px}
+.plaque small{display:block;font-size:10px;color:#A5906E;margin-top:8px;font-family:'Noto Sans SC',sans-serif;letter-spacing:2px;text-align:center}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+.opt{border:1px solid var(--line);border-radius:12px;padding:13px 14px;cursor:pointer;background:#fff;transition:.16s}
+.opt:hover{border-color:#D8CFB6}
+.opt.on{border-color:var(--orange);background:#FDF6EE;box-shadow:0 0 0 2px rgba(192,82,30,.08)}
+.opt b{display:block;font-size:12.5px;margin-bottom:4px}
+.opt span{display:block;font-size:10.5px;color:var(--mute);line-height:1.7}
+.sumbox{background:var(--cream);border-radius:13px;padding:16px;font-size:12.5px;color:#4A5340}
+.sumbox div{display:flex;justify-content:space-between;padding:5px 0}
+.sumbox .total{border-top:1px dashed #D9D2BC;margin-top:8px;padding-top:10px;font-weight:600;font-size:15px;color:#33291F}
+.check{display:flex;align-items:center;gap:8px;font-size:11.5px;color:#5C6152;cursor:pointer}
+.check input{width:15px;height:15px;accent-color:var(--orange)}
+
+.chatbox{display:flex;flex-direction:column;height:470px}
+.chatlog{flex:1;overflow:auto;padding:6px 2px;display:flex;flex-direction:column;gap:12px}
+.msg{max-width:64%;font-size:12.5px;line-height:1.8;padding:10px 13px;border-radius:14px}
+.msg.them{background:var(--cream);border-top-left-radius:5px;align-self:flex-start;color:#3C4632}
+.msg.mine{background:#E8EFE3;border-top-right-radius:5px;align-self:flex-end;color:#2E4028}
+.msg time{display:block;font-size:9.5px;color:#A3A292;margin-top:5px}
+.quick{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.quick span{border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:11px;color:#5C6152;cursor:pointer;background:#fff}
+.quick span:hover{border-color:var(--orange);color:var(--orange)}
+.chatinput{display:flex;gap:10px}
+.chatinput input{flex:1}
+
+.toast{position:fixed;left:50%;bottom:40px;transform:translateX(-50%) translateY(20px);background:rgba(34,57,43,.94);color:#fff;font-size:12px;padding:10px 18px;border-radius:999px;opacity:0;pointer-events:none;transition:.28s;z-index:99}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+.footer-note{font-size:11px;color:#A3A292;margin-top:30px;text-align:center;line-height:1.9}
+
+/* ---------- 8号树情感陪伴入口 ---------- */
+.tree-entry{
+  position:relative;display:flex;align-items:center;gap:18px;margin:0 0 18px;padding:18px 22px;
+  border-radius:20px;overflow:hidden;cursor:pointer;isolation:isolate;
+  background:linear-gradient(112deg,#20382A 0%,#2D4B35 58%,#5A7450 100%);
+  color:#fff;box-shadow:0 20px 42px -34px rgba(34,57,43,.8);
+  transition:transform .2s ease,box-shadow .2s ease;
+}
+.tree-entry:hover{transform:translateY(-2px);box-shadow:0 24px 48px -32px rgba(34,57,43,.72)}
+.tree-entry:focus-visible{outline:2px solid #F0C59E;outline-offset:3px}
+.tree-entry::before{
+  content:'';position:absolute;right:-35px;top:-105px;width:280px;height:280px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,202,136,.2),rgba(255,202,136,0) 68%);z-index:-1;
+}
+.tree-entry::after{
+  content:'';position:absolute;right:35px;bottom:-110px;width:230px;height:230px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.08);box-shadow:0 0 0 24px rgba(255,255,255,.025),0 0 0 48px rgba(255,255,255,.015);z-index:-1;
+}
+.te-art{
+  width:78px;height:78px;flex:0 0 78px;display:grid;place-items:center;border-radius:50%;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);
+}
+.te-art svg{width:61px;height:61px}
+.te-copy{min-width:0;flex:1}
+.te-kicker{display:block;margin-bottom:2px;color:#F0C59E;font-size:9.5px;font-weight:500;letter-spacing:1.5px}
+.te-copy b{display:block;color:#fff;font-family:'Noto Serif SC',Georgia,serif;font-size:22px;font-weight:600;letter-spacing:.5px;line-height:1.35}
+.te-copy p{margin:4px 0 0;color:rgba(255,255,255,.62);font-size:11.5px;line-height:1.65}
+.te-btn{
+  display:inline-flex;flex:0 0 auto;align-items:center;gap:6px;padding:9px 14px;border:1px solid rgba(255,255,255,.2);
+  border-radius:999px;background:rgba(255,255,255,.09);color:#fff;font-size:11.5px;white-space:nowrap;transition:.18s;
+}
+.te-btn svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:1.6}
+.tree-entry:hover .te-btn{background:#fff;border-color:#fff;color:#22392B}
+
+/* ---------- 嵌入认养人端 ---------- */
+.companion-layer{
+  position:fixed;inset:0;z-index:600;display:flex;flex-direction:column;background:var(--cream);
+  opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .24s ease,transform .28s ease,visibility .28s;
+}
+.companion-layer.open{opacity:1;visibility:visible;transform:none}
+.companion-bar{
+  display:flex;height:58px;flex:0 0 58px;align-items:center;justify-content:space-between;gap:18px;
+  padding:0 24px;background:#22392B;color:#fff;box-shadow:0 8px 26px rgba(20,36,25,.18);position:relative;z-index:2;
+}
+.cb-left{display:flex;min-width:0;align-items:center;gap:12px}
+.cb-mark{display:grid;width:31px;height:31px;flex:0 0 31px;place-items:center;border-radius:10px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.13)}
+.cb-mark svg{width:19px;height:19px}
+.cb-copy{min-width:0}
+.cb-kicker{display:block;color:#E8BA91;font-size:8.5px;letter-spacing:1.2px;line-height:1.2}
+.cb-title{display:block;margin-top:2px;color:#fff;font-family:'Noto Serif SC',Georgia,serif;font-size:15px;font-weight:600;letter-spacing:.4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cb-actions{display:flex;flex:0 0 auto;align-items:center;gap:12px}
+.cb-open{color:rgba(255,255,255,.6);font-size:10.5px;transition:color .16s}
+.cb-open:hover{color:#fff}
+.cb-close{
+  display:grid;width:32px;height:32px;place-items:center;border:1px solid rgba(255,255,255,.2);border-radius:50%;
+  background:transparent;color:#fff;font-family:inherit;font-size:22px;line-height:1;cursor:pointer;transition:.16s;
+}
+.cb-close:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.35)}
+.companion-layer iframe{display:block;width:100%;flex:1;border:0;background:var(--cream)}
+body.companion-open{overflow:hidden}
+
+@media (max-width:1080px){
+  .hero-grid,.cols{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr 1fr}
+  .acts{grid-template-columns:1fr 1fr}
+  .feed,.grid3{grid-template-columns:1fr 1fr}
+  .wrap{padding:24px 22px 60px}
+  .topbar{padding:0 22px}
+}
+.tscroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -2px;width:100%;max-width:100%}
+.cols>*{min-width:0}
+.panel{min-width:0}
+@media (max-width:760px){
+  body{display:block;overflow-x:hidden}
+  .side{position:static;width:auto;height:auto;flex:none;padding:14px}
+  .usercard,.sidefoot,.navlbl{display:none}
+  .brand{padding:0 4px 12px}
+  .nav{flex-direction:row;overflow:auto;gap:6px;padding-bottom:2px}
+  .nav a{white-space:nowrap;padding:7px 10px;font-size:12px}
+  .nav a.on::before{display:none}
+  .nav a .cnt{display:none}
+  .main{min-width:0}
+  .topbar{position:static;height:auto;padding:10px 16px;flex-wrap:wrap;gap:8px}
+  .wpill{display:none}
+  .stats,.acts,.feed,.grid3,.cols,.hero-grid{grid-template-columns:1fr!important}
+  .greet h1{font-size:26px}
+  .feature{min-height:330px}
+  .feature h2{font-size:24px;margin-top:26px}
+  .aside-card{min-height:260px}
+  .aside-card h3{margin-top:36px;font-size:19px}
+  .wrap{padding:20px 16px 50px}
+  .tbl{font-size:11.5px}
+  .tscroll table.tbl{min-width:0;white-space:normal;font-size:10.5px}
+  .tbl td,.tbl th{padding:8px 4px}
+  .msg{max-width:82%}
+  .tree-entry{flex-wrap:wrap;align-items:flex-start;gap:12px;padding:15px 16px;border-radius:17px}
+  .te-art{width:52px;height:52px;flex-basis:52px}
+  .te-art svg{width:42px;height:42px}
+  .te-copy{flex:1 1 calc(100% - 64px)}
+  .te-copy b{font-size:18px}
+  .te-copy p{font-size:10.5px;line-height:1.6}
+  .te-btn{flex:1 1 100%;justify-content:center;margin-top:1px;padding:8px 12px;font-size:10.5px}
+  .companion-bar{height:54px;flex-basis:54px;padding:0 14px;gap:8px}
+  .cb-mark{width:28px;height:28px;flex-basis:28px}
+  .cb-mark svg{width:17px;height:17px}
+  .cb-title{font-size:13px}
+  .cb-kicker{font-size:7.5px}
+  .cb-open{display:none}
+  .cb-close{width:30px;height:30px;font-size:20px}
+}
+body.farmer .sidefoot #toFarm{color:#F0C9A6}body.farmer .topbar .crumb span{color:#8B6A4B}
+</style>
+</head>
+<body>
+
+<aside class="side">
+  <div class="brand">
+    <div class="logo">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 20V12" stroke="#C0521E" stroke-width="1.5" stroke-linecap="round"/><path d="M12 12c-2.2 0-4-1.6-4-3.8C8 6 10 4.4 12 4.2c2 .2 4 1.8 4 4 0 2.2-1.8 3.8-4 3.8Z" fill="#E3733D"/><circle cx="10.4" cy="8.4" r="1.1" fill="#F5F1E8"/></svg>
+    </div>
+    <div>
+      <div class="nm">田约认采</div>
+      <div class="rl" id="brandRole">认养人工作台</div>
+    </div>
+  </div>
+
+  <div class="usercard">
+    <div class="av" id="userAv">晓</div>
+    <div class="u">
+      <b id="userName">母晓龙</b>
+      <span id="userSub">锦江学院 · 8 号树认养人</span>
+    </div>
+    <div class="bellsm">
+      <svg viewBox="0 0 24 24"><path d="M18 16v-5a6 6 0 1 0-12 0v5l-1.5 2.5h15L18 16Z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>
+      <span class="dot">3</span>
+    </div>
+  </div>
+
+  <nav class="nav" id="nav"></nav>
+
+  <div class="sidefoot">
+    <a href="#farm" id="toFarm"><span id="switchTxt">切回农户端</span><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+    <p>五行山项目组 · 四川大学锦江学院<br>交互演示版 · 数据保存在本机</p>
+  </div>
+</aside>
+
+<main class="main">
+  <div class="topbar">
+    <div class="crumb"><span id="crumbSide">客户端</span><i>·</i><b id="crumbName">工作台</b></div>
+    <div class="topright">
+      <div class="wpill"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.5 1.5M16.9 16.9l1.5 1.5M18.4 5.6l-1.5 1.5M7.1 16.9l-1.5 1.5"/></svg>眉山 <b>9°C</b> · 阴 · 果园湿度偏高</div>
+      <div class="ibtn" onclick="toast('3 条新提醒：木牌已挂、新播报、直播开启')"><svg viewBox="0 0 24 24"><path d="M18 16v-5a6 6 0 1 0-12 0v5l-1.5 2.5h15L18 16Z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg><span class="dot">3</span></div>
+      <div class="me" id="mePill" onclick="go(state.side=='farmer'?'fme':'me')"><span class="av sm" id="meAv">晓</span><span id="meName">母晓龙</span></div>
+    </div>
+  </div>
+  <div class="wrap" id="view"></div>
+</main>
+
+<div class="companion-layer" id="companionLayer" role="dialog" aria-modal="true" aria-label="我的8号树" aria-hidden="true">
+  <div class="companion-bar">
+    <div class="cb-left">
+      <span class="cb-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M12 21v-8" stroke="#F0C59E" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="12" cy="9" r="6" fill="#E3733D"/>
+          <path d="M8.5 7.5c2-1.2 5-1.2 7 0" stroke="#F5F1E8" stroke-width="1.2" stroke-linecap="round" opacity=".65"/>
+        </svg>
+      </span>
+      <span class="cb-copy">
+        <span class="cb-kicker">客户端 · 8号树情感陪伴</span>
+        <b class="cb-title">它今天也在等你</b>
+      </span>
+    </div>
+    <div class="cb-actions">
+      <a class="cb-open" href="client.html" target="_blank" rel="noopener">新窗口打开 ↗</a>
+      <button class="cb-close" type="button" onclick="closeCompanion()" aria-label="关闭我的8号树">×</button>
+    </div>
+  </div>
+  <iframe id="companionFrame" title="8号树认养人端" src="about:blank"></iframe>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const IMG = {
+  orchard:'assets/orchard-wide.webp',
+  keeper:'assets/farmer-avatar.webp',
+  fruit:'assets/fruit-close.webp',
+  broadcast:'assets/live-stage.webp'
+};
+
+const TREES = [
+  {id:'t8',  no:'团结村 8 号树',  v:'春见耙耙柑', age:12, kg:60, owner:'周桂芳', oa:68, price:398, ripe:'12 月中下旬', note:'转色期', img:IMG.orchard},
+  {id:'t3',  no:'果园村 3 号树',  v:'爱媛 38 号', age:8,  kg:50, owner:'李建国', oa:63, price:328, ripe:'11 月下旬',  note:'成熟中', img:IMG.fruit},
+  {id:'t12', no:'双江村 12 号树', v:'不知火',     age:15, kg:70, owner:'王秀英', oa:66, price:458, ripe:'次年 2 月',  note:'挂果多', img:IMG.orchard},
+  {id:'t21', no:'丰华村 21 号树', v:'春见耙耙柑', age:11, kg:55, owner:'张德云', oa:59, price:428, ripe:'12 月下旬',  note:'新上架', img:IMG.fruit}
+];
+
+const state = {plan:'std', ways:'ship', agree:false, harvest:'ship', group:31, side:'client'};
+
+/* ---------- 双端数据（农户端写入，客户端可见） ---------- */
+const FKEY = 'ty_farm_v1';
+const farm = (function(){
+  const def = {posts:[], living:false, balance:3842, picked:[], logs:[], liveStart:null};
+  try{ const raw = localStorage.getItem(FKEY); if(raw) return Object.assign(def, JSON.parse(raw)); }catch(e){}
+  return def;
+})();
+function saveFarm(){ try{ localStorage.setItem(FKEY, JSON.stringify(farm)); }catch(e){} }
+
+const FB = ['母晓龙','林晓雨','陈子昂','吴倩','赵一鸣','周雨桐','何斯远','许知意','范晓','李思远','郑好','吴佩'];
+const FORDERS = [
+  {id:'FY-08', no:'TY20261121-0086', tree:'团结村 8 号树', v:'春见耙耙柑', buyer:FB[0], price:378, mine:true},
+  {id:'FY-07', no:'TY20261121-0085', tree:'团结村 7 号树', v:'春见耙耙柑', buyer:FB[1], price:378},
+  {id:'FY-05', no:'TY20261120-0081', tree:'团结村 5 号树', v:'春见耙耙柑', buyer:FB[2], price:378},
+  {id:'FY-11', no:'TY20261120-0079', tree:'团结村 11 号树',v:'春见耙耙柑', buyer:FB[3], price:358},
+  {id:'FY-02', no:'TY20261119-0074', tree:'团结村 2 号树', v:'春见耙耙柑', buyer:FB[4], price:398},
+  {id:'FY-16', no:'TY20261119-0071', tree:'团结村 16 号树',v:'春见耙耙柑', buyer:FB[5], price:368},
+  {id:'FY-03', no:'TY20261118-0068', tree:'果园村 3 号树',  v:'爱媛 38 号',  buyer:FB[6], price:328},
+  {id:'FY-09', no:'TY20261118-0066', tree:'团结村 9 号树', v:'春见耙耙柑', buyer:FB[7], price:378},
+  {id:'FY-12', no:'TY20261117-0061', tree:'双江村 12 号树',v:'不知火',      buyer:FB[8], price:458},
+  {id:'FY-21', no:'TY20261117-0059', tree:'丰华村 21 号树', v:'春见耙耙柑', buyer:FB[9], price:428},
+  {id:'FY-06', no:'TY20261116-0052', tree:'团结村 6 号树', v:'春见耙耙柑', buyer:FB[10],price:378},
+  {id:'FY-14', no:'TY20261116-0050', tree:'团结村 14 号树',v:'春见耙耙柑', buyer:FB[11],price:378}
+];
+const pending = () => FORDERS.filter(o=>farm.picked.indexOf(o.id)<0).length;
+
+/* ---------- 侧栏菜单（客户端 / 农户端） ---------- */
+const NAV = {
+  client: [
+    {items:[
+      {r:'home',t:'工作台',ic:'home'},
+      {r:'feed',t:'田埂动态',ic:'feed'},
+      {r:'orders',t:'认养订单',ic:'doc',cnt:2},
+      {r:'mine',t:'我的果树',ic:'tree'}
+    ]},
+    {lbl:'我的助农',items:[
+      {r:'wallet',t:'助农钱包',ic:'wallet'},
+      {r:'live',t:'直播助手',ic:'live'},
+      {r:'companion',t:'我的8号树',ic:'heart'}
+    ]},
+    {lbl:'更多',items:[
+      {r:'trees',t:'认养果园',ic:'leaf'},
+      {r:'group',t:'校园团购',ic:'cart'},
+      {r:'charity',t:'公益认养',ic:'heart'},
+      {r:'harvest',t:'收成与物流',ic:'truck'},
+      {r:'chat',t:'与守树人聊天',ic:'chat'},
+      {r:'me',t:'我的',ic:'me'}
+    ]}
+  ],
+  farmer: [
+    {items:[
+      {r:'fhome',t:'工作台',ic:'home'},
+      {r:'ffeed',t:'果园动态',ic:'cam'},
+      {r:'forders',t:'认养订单',ic:'doc',cnt:12},
+      {r:'fmine',t:'我的果树',ic:'tree'}
+    ]},
+    {lbl:'经营',items:[
+      {r:'fwallet',t:'收益钱包',ic:'wallet'},
+      {r:'flive',t:'直播助手',ic:'live'}
+    ]},
+    {items:[
+      {r:'fme',t:'我的',ic:'me'}
+    ]}
+  ]
+};
+
+
+const ROUTE_NAME = {home:'工作台',mine:'我的果树',trees:'认养果园',tree:'果树详情',checkout:'确认认养',success:'认养成功',feed:'田埂动态',chat:'与守树人聊天',harvest:'收成与物流',progress:'收成进度',group:'校园团购',charity:'公益认养',me:'我的',farm:'农户端入口',orders:'认养订单',wallet:'助农钱包',live:'直播助手',fhome:'工作台',ffeed:'果园动态',forders:'认养订单',fmine:'我的果树',fwallet:'收益钱包',flive:'直播助手',fme:'我的'};
+
+const I = {
+  tree:'<svg viewBox="0 0 24 24"><path d="M12 21v-8"/><path d="M12 13c-2.4 0-4.3-1.8-4.3-4.2C7.7 6.4 9.6 4.6 12 4.6s4.3 1.8 4.3 4.2C16.3 11.2 14.4 13 12 13Z"/></svg>',
+  box:'<svg viewBox="0 0 24 24"><path d="M12 3.6 20 8v8l-8 4.4L4 16V8z"/><path d="M4 8l8 4.4L20 8"/></svg>',
+  heart:'<svg viewBox="0 0 24 24"><path d="M12 20s-6.5-4-6.5-8.2A3.8 3.8 0 0 1 12 9a3.8 3.8 0 0 1 6.5 2.8C18.5 16 12 20 12 20Z"/></svg>',
+  leaf:'<svg viewBox="0 0 24 24"><path d="M20 4c-9 0-14 4-14 9a6 6 0 0 0 6 6c5 0 8-5 8-15Z"/><path d="M9 18C10 13 13 9 18 6"/></svg>',
+  cam:'<svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="3"/><circle cx="12" cy="13.5" r="3.4"/><path d="M8 7l1.4-2.4h5.2L16 7"/></svg>',
+  cart:'<svg viewBox="0 0 24 24"><path d="M4 6h16l-1.4 11.5H5.4z"/><path d="M9 6V4.5a3 3 0 0 1 6 0V6"/></svg>',
+  chat:'<svg viewBox="0 0 24 24"><path d="M20 12.5c0 3.6-3.6 6.5-8 6.5-1 0-2-.2-2.9-.5L4 20l1.6-3.8C4.6 15 4 13.8 4 12.5 4 8.9 7.6 6 12 6s8 2.9 8 6.5Z"/></svg>',
+  doc:'<svg viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h4"/></svg>',
+  play:'<svg viewBox="0 0 24 24"><path d="M8 5l11 7-11 7z"/></svg>',
+  arrow:'<svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg>',
+  truck:'<svg viewBox="0 0 24 24"><rect x="3" y="7" width="10" height="9" rx="1.5"/><path d="M13 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/></svg>'
+  ,
+  home:'<svg viewBox="0 0 24 24"><path d="M4 10.5 12 4l8 6.5V20H4z"/></svg>',
+  feed:'<svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="2.5"/><path d="M4 10h16M9 5v5"/></svg>',
+  me:'<svg viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.6"/><path d="M4.5 20c0-3.8 3.4-6.2 7.5-6.2s7.5 2.4 7.5 6.2"/></svg>',
+  wallet:'<svg viewBox="0 0 24 24"><rect x="3.5" y="6" width="17" height="12" rx="3"/><path d="M16 12h1.5"/></svg>',
+  live:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M6.5 6.5a8 8 0 0 0 0 11M17.5 6.5a8 8 0 0 1 0 11"/></svg>'
+};
+
+const statCard = (k, num, unit, note, ico, warm) => `
+  <div class="stat ${warm?'warm':''}">
+    <div class="ico">${ico}</div>
+    <div class="k">${k}</div>
+    <div class="num">${num}<small>${unit}</small></div>
+    <div class="note">${note}</div>
+  </div>`;
+
+const actCard = (t, s, ico, color, r) => `
+  <div class="act" onclick="go('${r}')">
+    <div class="tile ${color}">${ico}</div>
+    <div><b>${t}</b><span>${s}</span></div>
+  </div>`;
+
+function pageHome(){
+  return `
+  <div class="greet">
+    <div class="dt"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2.5"/><path d="M4 10h16M8 3v4M16 3v4"/></svg>11 月 21 日 · 周六 · 彭山 9°C · 阴</div>
+    <h1>晓龙，你的树<em>今天也好。</em></h1>
+    <p>转色过半，12 月中下旬就能摘了。今天还有 2 件小事，慢慢来。</p>
+  </div>
+
+  <div class="tree-entry" role="button" tabindex="0" onclick="openCompanion()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openCompanion()}">
+    <div class="te-art" aria-hidden="true">
+      <svg viewBox="0 0 80 80" fill="none">
+        <circle cx="40" cy="34" r="24" fill="#7D9D6C"/>
+        <circle cx="28" cy="29" r="15" fill="#9EBA89"/>
+        <circle cx="51" cy="27" r="13" fill="#8FAD7D"/>
+        <path d="M39 58V41" stroke="#7A4F34" stroke-width="5" stroke-linecap="round"/>
+        <path d="M39 51c-7 0-11-4-11-9 5 0 11 3 11 9Z" fill="#E7C59B"/>
+        <circle cx="30" cy="36" r="4.2" fill="#E58B46"/>
+        <circle cx="47" cy="33" r="3.6" fill="#E58B46"/>
+        <circle cx="54" cy="40" r="3" fill="#E58B46"/>
+        <path d="M21 60h38" stroke="rgba(255,255,255,.32)" stroke-width="1.4" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="te-copy">
+      <span class="te-kicker">8号树 · 今天的心情</span>
+      <b>它今天也在等你</b>
+      <p>五种情绪、成长线，还有一句想对你说的话。</p>
+    </div>
+    <span class="te-btn">进入我的8号树 ${I.arrow}</span>
+  </div>
+
+  <div class="stats">
+    ${statCard('我认养的果树','1','棵','8 号树 · 春见耙耙柑 · 周桂芳', I.tree)}
+    ${statCard('全年保底收成','60','斤', farm.picked.indexOf('FY-08')>-1?'已采摘 · 冷链发出中':'预计 12 月 20 日开园', I.box)}
+    ${statCard('助农金额','378','元','助农值 386 · 已陪伴 9 次', I.heart, true)}
+  </div>
+
+  <div class="acts">
+    ${actCard('看播报','生长时间轴已到转色期', I.tree, 'green', 'mine')}
+    ${actCard('看直播','今晚 19:30 果园夜话', I.cam, 'orange', 'live')}
+    ${actCard('认养订单','2 笔 · 待收成 1 单', I.doc, 'blue', 'orders')}
+    ${actCard('选收成方式','邮寄 / 自提 / 捐赠 / 代销', I.truck, '', 'harvest')}
+  </div>
+
+  <div class="hero-grid">
+    <div class="feature">
+      <img src="${IMG.orchard}" alt="果园">
+      <div class="corner"><span class="chip">2026 产季 · 我的第一年</span></div>
+      <div class="corner2">拍摄于 11 月 18 日 · 团结村 3 号果园</div>
+      <div class="in">
+        <h2>这一季，这棵树<br>属于你了。</h2>
+        <p>从锦江学院到团结村，6.8 公里的一次相互惦记。</p>
+        <button class="fbtn" onclick="go('mine')">看生长时间轴${I.arrow}</button>
+      </div>
+      <div class="mates">
+        <img src="${IMG.keeper}" alt="">
+        <div><b>木牌已挂 · 第 12 天</b><span>周阿姨会在 24 小时内拍视频</span></div>
+      </div>
+    </div>
+
+    <div class="aside-card">
+      <img src="${IMG.broadcast}" alt="直播">
+      <div class="in">
+        <span class="live"><em></em>直播预告 · 今晚 19:30</span>
+        <h3>果园夜话 · 第 12 期</h3>
+        <p>给 8 号树系上第一根红绳 · 214 人已预约</p>
+        <div class="row">
+          <span style="font-size:10.5px;color:rgba(255,255,255,.62)">周桂芳 · 团结村</span>
+          <button class="fbtn" onclick="toast('已为你预约，开播前 10 分钟提醒')">去预约${I.arrow}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cols" style="margin-bottom:18px">
+    <div class="panel">
+      <div class="ph"><h3>认养订单</h3><span onclick="go('orders')">全部订单 ›</span></div>
+      <div class="tscroll"><table class="tbl">
+        <tr><td style="width:46%;font-weight:500">团结村 8 号树 · 标准认养</td><td style="color:#8E8D7C;font-size:11px">TY20261121-0086</td><td style="text-align:right"><span class="badge green">已支付 ¥378</span></td></tr>
+        <tr><td style="font-weight:500">春见 20 斤整箱 · 校园团购</td><td style="color:#8E8D7C;font-size:11px">TG20261118-0031</td><td style="text-align:right"><span class="badge orange">已成团 ¥69.9</span></td></tr>
+      </table></div>
+    </div>
+    <div class="panel">
+      <div class="ph"><h3>助农钱包</h3><span onclick="go('wallet')">明细 ›</span></div>
+      <div class="kv" style="margin-bottom:14px">
+        <div class="item"><i>助农值</i><b>386</b></div>
+        <div class="item"><i>校园佣金</i><b>5.6<small>元</small></b></div>
+      </div>
+      <div class="sumbox">
+        <div><span>可抵扣认养金</span><span>¥132</span></div>
+        <div class="total"><span>下一年可用</span><span>最高 50%</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cols">
+    <div class="panel">
+      <div class="ph"><h3>这一年的进度</h3><span onclick="go('mine')">我的果园 ›</span></div>
+      <div class="tl">
+        <div class="n done"><div class="dot"><svg viewBox="0 0 24 24"><path d="M5 12l4.5 4.5L19 7"/></svg></div><b>抽秋梢</b><em>9 月上旬</em></div>
+        <div class="n done"><div class="dot"><svg viewBox="0 0 24 24"><path d="M5 12l4.5 4.5L19 7"/></svg></div><b>转色</b><em>11 月中旬</em></div>
+        <div class="n now"><div class="dot"><svg viewBox="0 0 24 24"><path d="M5 12l4.5 4.5L19 7"/></svg></div><b>降酸</b><em>现在 · 糖度 14.2</em></div>
+        <div class="n"><div class="dot"><svg viewBox="0 0 24 24"><path d="M5 12l4.5 4.5L19 7"/></svg></div><b>采摘</b><em>12 月下旬</em></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="ph"><h3>今天的两件小事</h3><span onclick="go('feed')">田埂 ›</span></div>
+      <div class="task" style="margin-bottom:10px">
+        <div class="tic"><svg viewBox="0 0 24 24"><path d="M12 3v18M6 9c4 0 6-2 6-6"/></svg></div>
+        <div><b>提醒阿姨降温添衣</b><span>做完助农值 +5</span></div>
+        <button onclick="this.textContent='已完成';toast('已提醒，助农值 +5')">去完成</button>
+      </div>
+      <div class="task">
+        <div class="tic"><svg viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="12" rx="2"/><path d="M8 7l1.4-2.4h5.2L16 7"/></svg></div>
+        <div><b>看看你的树出镜了</b><span>42 秒竖屏视频 · 守树人手机拍摄</span></div>
+        <button onclick="toast('视频播放为演示占位')">去看看</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-bottom:18px">
+    <div class="ph"><h3>田埂上的新鲜事</h3><span onclick="go('feed')">全部动态 ›</span></div>
+    <div class="feed">
+      <div class="post">
+        <div class="ph2"><img src="${IMG.broadcast}" alt=""><div class="tag">生长播报 · 第 9 期</div><div class="dur">00:42</div></div>
+        <div class="bd">
+          <div class="who"><img src="${IMG.keeper}" alt=""><b>周桂芳</b><span>团结村 · 68 岁</span></div>
+          <p>果子开始转色了，今天摸了一下，硬邦邦的刚好。你们放心，冻不着。</p>
+          <div class="act2"><span onclick="toast('已点赞')">♡ 赞 128</span><span onclick="toast('评论功能待接入')">评论 12</span></div>
+        </div>
+      </div>
+      <div class="post">
+        <div class="ph2"><img src="${IMG.fruit}" alt=""><div class="tag">果园实况</div></div>
+        <div class="bd">
+          <div class="who"><img src="${IMG.orchard}" alt=""><b>团结村 3 号果园</b><span>连片 126 亩</span></div>
+          <p>霜降后的第三天，整片园子都在等太阳。47 户农户，平均树龄 11 年。</p>
+          <div class="act2"><span onclick="toast('已点赞')">♡ 赞 96</span><span onclick="go('trees')">去看果树</span></div>
+        </div>
+      </div>
+      <div class="post">
+        <div class="ph2"><img src="${IMG.orchard}" alt=""><div class="tag">农户手记</div></div>
+        <div class="bd">
+          <div class="who"><img src="${IMG.keeper}" alt=""><b>周桂芳</b><span>3 天前</span></div>
+          <p>给树根盖了点稻草，夜里风大。木牌挂在第 3 根主枝上，晃都是晃得稳的。</p>
+          <div class="act2"><span onclick="toast('已点赞')">♡ 赞 74</span><span onclick="go('chat')">聊两句</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-note">原型演示 · 所有数据为示例，交互仅在本页生效</div>`;
+}
+
+function pageMine(){
+  return `
+  <div class="greet">
+    <div class="dt">我的果园 · 团结村 3 号果园</div>
+    <h1>8 号树，<em>正在变甜。</em></h1>
+    <p>春见耙耙柑 · 树龄 12 年 · 预估 60 斤 · 守树人周桂芳（68 岁）</p>
+  </div>
+
+  <div class="hero-grid">
+    <div class="feature" style="min-height:360px">
+      <img src="${IMG.orchard}" alt="我的树">
+      <div class="corner"><span class="chip">转色期</span></div>
+      <div class="in">
+        <h2 style="font-size:28px;margin:60px 0 8px">“好好长大，冬天见。”</h2>
+        <p>你写在木牌上的那句话 · 已挂 12 天</p>
+        <button class="fbtn" onclick="toast('已复制木牌寄语')">复制这句话${I.arrow}</button>
+      </div>
+    </div>
+    <div class="panel" style="display:flex;flex-direction:column;justify-content:center">
+      <div class="kv" style="margin-bottom:14px">
+        <div class="item"><i>品种</i><b>春见耙耙柑</b></div>
+        <div class="item"><i>去年产量</i><b>63<small>斤</small></b></div>
+      </div>
+      <div class="kv" style="margin-bottom:14px">
+        <div class="item"><i>糖度实测</i><b>14.2<small>度</small></b></div>
+        <div class="item"><i>预计采摘</i><b>12/20</b></div>
+      </div>
+      <div class="kv">
+        <div class="item"><i>保底收成</i><b>40<small>斤</small></b></div>
+        <div class="item"><i>已陪伴</i><b>9<small>次</small></b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cols">
+    <div class="panel">
+      <div class="ph"><h3>生长时间轴</h3><span>9 月至 12 月</span></div>
+      <div class="tl">
+        <div class="n done"><div class="dot"><svg viewBox="0 0 24 24"><path d="M5 12l4.5 4.5L19 7"/></svg></div><b>抽秋梢</b><em>9 月上旬</em></div>
+        <div class="n done"><div class="dot"><svg viewBox="0 0 24 24"><path d="M5 12l4.5 4.5L19 7"/></svg></div><b>转色</b><em>11 月中旬</em></div>
+        <div class="n now"><div class="dot"><svg viewBox="0 0 24 24"><path d="M5 12l4.5 4.5L19 7"/></svg></div><b>降酸</b><em>现在</em></div>
+        <div class="n"><div class="dot"><svg viewBox="0 0 24 24"><path d="M5 12l4.5 4.5L19 7"/></svg></div><b>采摘</b><em>12 月下旬</em></div>
+      </div>
+      <p style="font-size:11.5px;color:#8E8D7C;line-height:1.9;margin:18px 0 0">已发生的节点为实心圆点，当前节点标注“现在”，未来节点为空心。</p>
+    </div>
+
+    <div class="panel">
+      <div class="ph"><h3>最新播报</h3><span onclick="go('feed')">田埂日记 ›</span></div>
+      <div class="media">
+        <img src="${IMG.broadcast}" alt="">
+        <div class="c"><b>你的树出镜了</b><span>42 秒竖屏视频 · 守树人手机拍摄</span></div>
+        <div class="play" onclick="toast('视频播放为演示占位')">${I.play}</div>
+      </div>
+      <div class="media">
+        <img src="${IMG.keeper}" alt="">
+        <div class="c"><b>38 秒语音</b><span>“这两天降温，我给树根盖了点稻草。”</span></div>
+        <div class="play" onclick="toast('语音播放为演示占位')">${I.play}</div>
+      </div>
+      <div class="task">
+        <div class="tic"><svg viewBox="0 0 24 24"><path d="M12 3v18M6 9c4 0 6-2 6-6"/></svg></div>
+        <div><b>今日小任务 · 提醒阿姨添衣</b><span>完成助农值 +5</span></div>
+        <button onclick="this.textContent='已完成';toast('助农值 +5')">完成</button>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:12px;flex-wrap:wrap">
+    <button class="btn primary" onclick="go('harvest')">去选收成方式${I.arrow}</button>
+    <button class="btn" onclick="go('chat')">和守树人聊两句</button>
+    <button class="btn" onclick="go('trees')">再认一棵</button>
+  </div>`;
+}
+
+function pageTrees(){
+  return `
+  <div class="greet">
+    <div class="dt">认养果园 · 产地名片</div>
+    <h1>挑一棵<em>彭山的树。</em></h1>
+    <p>团结村 3 号果园 · 47 户农户 · 连片 126 亩 · 平均树龄 11 年 · 距锦江学院 6.8 公里 · 可周末到园</p>
+  </div>
+
+  <div class="panel" style="margin-bottom:16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:14px 18px">
+    <span class="badge orange">全部 236</span>
+    <span class="badge">春见耙耙柑</span><span class="badge">爱媛 38 号</span><span class="badge">不知火</span>
+    <span class="badge" style="margin-left:auto">树龄 ↓</span>
+  </div>
+
+  <div class="grid3">
+    ${TREES.map(t=>`
+      <div class="tree" onclick="go('tree','${t.id}')">
+        <div class="im"><img src="${t.img}" alt=""><span class="tagx">${t.note}</span></div>
+        <div class="bd">
+          <h4>${t.no}</h4>
+          <div class="meta">${t.v} · 树龄 ${t.age} 年 · 预估 ${t.kg} 斤<br>守树人 ${t.owner} · ${t.oa} 岁 · ${t.ripe}成熟</div>
+          <div class="foot">
+            <div class="price">¥${t.price}<small>/年</small></div>
+            <button class="btn sm orange" onclick="event.stopPropagation();go('tree','${t.id}')">认养</button>
+          </div>
+        </div>
+      </div>`).join('')}
+  </div>
+
+  <div class="panel" style="margin-top:16px;padding:16px 20px">
+    <p style="font-size:11.5px;color:#8E8D7C;line-height:1.9;margin:0">两条规则写在最前面：每棵树一年只认养一次；认养后 24 小时内锁树挂牌。</p>
+  </div>`;
+}
+
+function pageTree(id){
+  const t = TREES.find(x=>x.id===id) || TREES[0];
+  return `
+  <div class="hero-grid">
+    <div class="feature" style="min-height:420px">
+      <img src="${t.img}" alt="">
+      <div class="corner"><span class="chip">${t.note}</span></div>
+      <div class="in">
+        <h2 style="font-size:30px;margin:70px 0 8px">${t.no}</h2>
+        <p>${t.v} · 树龄 ${t.age} 年 · 预估 ${t.kg} 斤 · ${t.ripe}成熟</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="fbtn" onclick="go('checkout','${t.id}')">立即认养 ¥${t.price}${I.arrow}</button>
+          <button class="fbtn" style="background:rgba(255,255,255,.16);color:#fff" onclick="go('chat')">先打招呼</button>
+        </div>
+      </div>
+      <div class="mates">
+        <img src="${IMG.keeper}" alt="">
+        <div><b>${t.owner} · ${t.oa} 岁</b><span>种植 38 年 · 子女在成都务工</span></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="ph"><h3>可核对的数据</h3><span>实测</span></div>
+      <div class="kv" style="margin-bottom:12px">
+        <div class="item"><i>品种</i><b>${t.v}</b></div>
+        <div class="item"><i>树龄 / 砧木</i><b>${t.age}<small>年</small></b></div>
+      </div>
+      <div class="kv" style="margin-bottom:16px">
+        <div class="item"><i>去年产量</i><b>63<small>斤</small></b></div>
+        <div class="item"><i>糖度实测</i><b>14.2<small>度</small></b></div>
+      </div>
+      <div style="border-top:1px dashed #E3DCCB;padding-top:14px">
+        <b style="font-size:12.5px;display:block;margin-bottom:10px">认养包含这五件事</b>
+        <div style="font-size:11.5px;color:#5C6152;line-height:2.1">专属木牌 · 12 次生长播报 · 4 场专属直播<br>全年 ${t.kg} 斤收成 · 随时可留言的代际陪伴</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="ph"><h3>三种认养套餐</h3><span>点卡片切换</span></div>
+    <div class="opts">
+      <div class="opt on"><b>标准认养 ¥398</b><span>含 60 斤 · 一块专属木牌 · 全年播报</span></div>
+      <div class="opt"><b>双人共享 ¥598</b><span>含 90 斤 · 两人共同挂牌 · 含一次到园接待</span></div>
+      <div class="opt"><b>公益认养 ¥498</b><span>60 斤全部捐给留守儿童之家</span></div>
+    </div>
+  </div>`;
+}
+
+function pageCheckout(id){
+  const t = TREES.find(x=>x.id===id) || TREES[0];
+  const price = state.plan==='std'?398:state.plan==='duo'?598:498;
+  const total = Math.max(price-20,0);
+  const planName = {std:'标准认养',duo:'双人共享',char:'公益认养'}[state.plan];
+  return `
+  <div class="greet">
+    <div class="dt">确认认养 · ${t.no}</div>
+    <h1>四件事，<em>做完就下单。</em></h1>
+    <p>选套餐 → 写木牌 → 定收成意向 → 核对费用并勾选协议。</p>
+  </div>
+
+  <div class="cols" style="grid-template-columns:1.15fr .85fr">
+    <div class="panel">
+      <div class="field">
+        <label>1 · 选套餐</label>
+        <div class="opts">
+          <div class="opt ${state.plan==='std'?'on':''}" onclick="pickPlan('std')"><b>标准认养</b><span>¥398 · 含 60 斤</span></div>
+          <div class="opt ${state.plan==='duo'?'on':''}" onclick="pickPlan('duo')"><b>双人共享</b><span>¥598 · 含 90 斤</span></div>
+          <div class="opt ${state.plan==='char'?'on':''}" onclick="pickPlan('char')"><b>公益认养</b><span>¥498 · 全捐</span></div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>2 · 写木牌（最多 12 个字）</label>
+        <input class="inp" id="plaqueInput" maxlength="12" value="好好长大，冬天见" oninput="plaquePreview(this.value)">
+        <div class="plaque" style="margin-top:12px"><span id="plaqueText">好好长大，冬天见</span><small>8 号树 · 母晓龙认养</small></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+          <span class="badge" onclick="usePlaque('好好长大，冬天见')">好好长大，冬天见</span>
+          <span class="badge" onclick="usePlaque('冬天见，甜的')">冬天见，甜的</span>
+          <span class="badge" onclick="usePlaque('给爸妈寄一箱')">给爸妈寄一箱</span>
+          <span class="badge" onclick="usePlaque('树的第 1 年')">树的第 1 年</span>
+        </div>
+      </div>
+
+      <div class="field" style="margin-bottom:4px">
+        <label>3 · 定收成意向（采摘前仍可修改）</label>
+        <div class="opts">
+          <div class="opt ${state.ways==='ship'?'on':''}" onclick="pickWay('ship')"><b>邮寄到家</b><span>顺丰冷链 · 平台承担运费</span></div>
+          <div class="opt ${state.ways==='pick'?'on':''}" onclick="pickWay('pick')"><b>到校自提</b><span>锦江学院南门 · 12/21–27</span></div>
+          <div class="opt ${state.ways==='give'?'on':''}" onclick="pickWay('give')"><b>公益捐赠</b><span>留守儿童之家 · 可开证明</span></div>
+          <div class="opt ${state.ways==='sell'?'on':''}" onclick="pickWay('sell')"><b>团购代销</b><span>2.2 元/斤 · 可抵次年认养</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" style="align-self:start">
+      <div class="ph"><h3>4 · 核对费用</h3><span>${planName}</span></div>
+      <div class="sumbox">
+        <div><span>认养费</span><span>¥${price}</span></div>
+        <div><span>校园认证立减</span><span style="color:#4C6B47">-¥20</span></div>
+        <div><span>冷链与自提</span><span>¥0</span></div>
+        <div class="total"><span>合计</span><span>¥${total}</span></div>
+      </div>
+      <label class="check" style="margin:14px 0 18px">
+        <input type="checkbox" ${state.agree?'checked':''} onchange="state.agree=this.checked">
+        我已阅读并同意《果树认养服务协议》
+      </label>
+      <button class="btn primary" style="width:100%;justify-content:center" onclick="submitOrder()">提交并支付 ¥${total}</button>
+      <p style="font-size:10.5px;color:#A3A292;margin:12px 0 0;line-height:1.8">提交后会弹出支付浮层，确认后进入约 1.4 秒的锁树动效。</p>
+    </div>
+  </div>`;
+}
+
+function pageSuccess(){
+  return `
+  <div class="greet" style="text-align:center;margin-bottom:18px">
+    <div class="dt" style="justify-content:center">认养成功</div>
+    <h1>认到了，<em>这块木牌是你的。</em></h1>
+    <p>守树人会在 24 小时内把木牌挂上，并拍一段视频发给你。</p>
+  </div>
+
+  <div class="cols" style="grid-template-columns:1fr 1fr">
+    <div class="panel" style="display:flex;flex-direction:column;justify-content:center;align-items:center;padding:34px">
+      <div class="plaque" style="width:100%;max-width:360px">好好长大，冬天见<small>团结村 8 号树 · 母晓龙</small></div>
+      <div style="font-size:11px;color:#8E8D7C;margin-top:16px">木牌编号 PB-2026-0817</div>
+    </div>
+    <div class="panel">
+      <div class="ph"><h3>订单信息</h3><span>已支付</span></div>
+      <div class="sumbox" style="margin-bottom:16px">
+        <div><span>订单号</span><span>TY20261121-0086</span></div>
+        <div><span>预计采摘</span><span>12 月 20 日</span></div>
+        <div><span>实付金额</span><span>¥378</span></div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn primary" onclick="go('mine')">去我的果园</button>
+        <button class="btn" onclick="go('feed')">看看田埂</button>
+      </div>
+      <p style="font-size:10.5px;color:#A3A292;margin:16px 0 0;line-height:1.8">页面底部的“加 12 元换手写木牌”为演示内容，当前不可真实支付。</p>
+    </div>
+  </div>`;
+}
+
+function myFarmPosts(){
+  if(!farm.posts.length) return '';
+  return farm.posts.map(p=>`
+    <div class="post">
+      <div class="bd" style="padding-top:16px">
+        <div class="who"><img src="${IMG.keeper}" alt=""><b>周桂芳</b><span>${p.ts} · 团结村 · 农户端发出</span></div>
+        <p>${p.txt}</p>
+        <div class="act2"><span onclick="toast('已点赞')">♡ 赞 ${p.likes}</span><span style="margin-left:auto;color:#4C6B47">实时同步自农户端</span></div>
+      </div>
+    </div>`).join('');
+}
+function pageFeed(){
+  return `
+  <div class="greet">
+    <div class="dt">田埂日记 · 团结村</div>
+    <h1>果园里的<em>今天。</em></h1>
+    <p>直播预告、生长播报、果园实况——都由农户亲自发出。</p>
+  </div>
+
+  <div class="hero-grid" style="grid-template-columns:1fr">
+    <div class="aside-card" style="min-height:230px">
+      <img src="${IMG.broadcast}" alt="">
+      <div class="in">
+        <span class="live"><em></em>推荐 · 今晚 19:30</span>
+        <h3 style="margin-top:30px">果园夜话：给 8 号树系上第一根红绳</h3>
+        <p>周桂芳 · 214 人已预约 · 可连麦问树</p>
+        <div class="row"><span style="font-size:10.5px;color:rgba(255,255,255,.62)">直播预约</span><button class="fbtn" onclick="toast('已预约')">去预约</button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="feed">
+    ${myFarmPosts()}
+    <div class="post">
+      <div class="ph2"><img src="${IMG.broadcast}" alt=""><div class="tag">生长播报 · 第 9 期</div><div class="dur">00:42</div></div>
+      <div class="bd">
+        <div class="who"><img src="${IMG.keeper}" alt=""><b>周桂芳</b><span>团结村 · 68 岁 · 认养人可见</span></div>
+        <p>果子开始转色了，今天摸了一下，硬邦邦的刚好。这两天降温，我给树根盖了点稻草。你们放心，冻不着。</p>
+        <div class="act2"><span onclick="toast('已点赞')">♡ 赞 128</span><span onclick="toast('评论功能待接入')">评论 12</span><span style="margin-left:auto">09:12</span></div>
+      </div>
+    </div>
+    <div class="post">
+      <div class="ph2"><img src="${IMG.fruit}" alt=""><div class="tag">果园实况</div></div>
+      <div class="bd">
+        <div class="who"><img src="${IMG.orchard}" alt=""><b>团结村 3 号果园</b><span>47 户 · 126 亩</span></div>
+        <p>霜降后的第三天，整片园子都在等太阳。8 号树枝头的果子已经压弯了枝条。</p>
+        <div class="act2"><span onclick="toast('已点赞')">♡ 赞 96</span><span onclick="toast('评论功能待接入')">评论 6</span></div>
+      </div>
+    </div>
+    <div class="post">
+      <div class="ph2"><img src="${IMG.orchard}" alt=""><div class="tag">农户手记</div></div>
+      <div class="bd">
+        <div class="who"><img src="${IMG.keeper}" alt=""><b>周桂芳</b><span>3 天前</span></div>
+        <p>木牌挂在第 3 根主枝上，晃都是晃得稳的。等视频拍好发给你们看。</p>
+        <div class="act2"><span onclick="toast('已点赞')">♡ 赞 74</span><span onclick="go('chat')">聊两句</span></div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function pageChat(){
+  return `
+  <div class="greet">
+    <div class="dt">与守树人聊天 · 周桂芳</div>
+    <h1>话不用长，<em>阿姨听得懂。</em></h1>
+    <p>常用语音，打字慢。语音会自动转成文字给阿姨看，阿姨说的话也会转成文字给你。</p>
+  </div>
+
+  <div class="cols" style="grid-template-columns:1fr .7fr">
+    <div class="panel chatbox">
+      <div class="chatlog" id="log">
+        <div class="msg them">娃儿，今年的甜度上来了，90 天的活头没白干。你们放心。<time>09:12</time></div>
+        <div class="msg mine">阿姨，天冷了您也多穿点，视频不急，树好就行。<time>09:14</time></div>
+        <div class="msg them">你这儿跑得远，等到了，我给你寄最大那几个。<time>09:20</time></div>
+      </div>
+      <div class="quick">
+        <span onclick="sendQuick('阿姨注意身体')">阿姨注意身体</span>
+        <span onclick="sendQuick('果子长得真好')">果子长得真好</span>
+        <span onclick="sendQuick('周末能来园里吗')">周末能来园里吗</span>
+        <span onclick="sendQuick('木牌挂上了吗')">木牌挂上了吗</span>
+      </div>
+      <div class="chatinput">
+        <input class="inp" id="chatIn" placeholder="说点什么…" onkeydown="if(event.key==='Enter')sendMsg()">
+        <button class="btn orange" onclick="sendMsg()">发送</button>
+      </div>
+    </div>
+
+    <div class="panel" style="align-self:start">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+        <img src="${IMG.keeper}" alt="" style="width:52px;height:52px;border-radius:14px;object-fit:cover">
+        <div><b style="font-size:14px">周桂芳</b><div style="font-size:11px;color:#8E8D7C;margin-top:3px">团结村 8 号树守树人 · 68 岁</div></div>
+      </div>
+      <div class="kv" style="margin-bottom:14px"><div class="item"><i>种植年数</i><b>38<small>年</small></b></div><div class="item"><i>已陪伴</i><b>12<small>天</small></b></div></div>
+      <p style="font-size:11.5px;color:#5C6152;line-height:1.9;margin:0">子女在成都务工，平时用语音更方便。你的每一句话，她都会在田埂上听完。</p>
+    </div>
+  </div>`;
+}
+
+function pageHarvest(){
+  const ways = [
+    ['ship','邮寄到家','顺丰冷链，平台承担运费，可分 3 箱寄出，破损包赔','想寄给父母或宿舍分着吃的人'],
+    ['pick','到校自提','锦江学院南门田约驿站，12 月 21 至 27 日凭码取货','就在彭山校区、想零运费的人'],
+    ['give','公益捐赠','捐给彭山区留守儿童之家，12 月 24 日统一送达，可开证明','吃不完又不想浪费的人'],
+    ['sell','团购代销','按 2.2 元每斤结算，60 斤预计回款 132 元','想收回部分成本的人']
+  ];
+  return `
+  <div class="greet">
+    <div class="dt">收成处置 · 60 斤怎么收</div>
+    <h1>这一箱，<em>你想怎么收？</em></h1>
+    <p>总量 60 斤 · 预计 12 月 20 日开园 · 保底 40 斤</p>
+  </div>
+
+  <div class="opts" style="grid-template-columns:repeat(4,1fr)">
+    ${ways.map(([k,n,r,w])=>`
+      <div class="opt ${state.harvest===k?'on':''}" style="padding:18px" onclick="pickHarvest('${k}')">
+        <b style="font-size:13.5px;margin-bottom:8px">${n}</b>
+        <span style="line-height:1.85">${r}</span>
+        <div style="font-size:10px;color:#A3A292;margin-top:10px;line-height:1.7">适合：${w}</div>
+      </div>`).join('')}
+  </div>
+
+  <div class="cols" style="grid-template-columns:1.4fr 1fr;margin-top:16px">
+    <div class="panel">
+      <div class="ph"><h3>处置细则</h3><span id="wayName">邮寄到家</span></div>
+      <div class="sumbox">
+        <div><span>寄出时间</span><span>采摘后 48 小时内</span></div>
+        <div><span>运费</span><span>平台承担</span></div>
+        <div><span>破损处理</span><span>24 小时内包赔</span></div>
+        <div class="total"><span>本次记录</span><span>采摘前可修改</span></div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="ph"><h3>服务保障</h3><span>三条</span></div>
+      <p style="font-size:11.5px;color:#5C6152;line-height:2.1;margin:0">保底 40 斤 · 破损 24 小时内包赔 · 农户直发且认养款 70% 直达农户</p>
+      <button class="btn primary" style="width:100%;justify-content:center;margin-top:16px" onclick="toast('已记录处置方式，正在跳转收成进度');setTimeout(()=>go('progress'),1200)">确认处置方式</button>
+    </div>
+  </div>`;
+}
+
+function pageProgress(){
+  const pk = farm.picked.indexOf('FY-08')>-1;
+  return `
+  <div class="greet">
+    <div class="dt">收成进度 · 货到哪了</div>
+    <h1>还剩<em>最后一段路。</em></h1>
+    <p>采摘打包 → 冷链发出 → 派送上门 → 确认收货</p>
+  </div>
+
+  <div class="cols" style="grid-template-columns:1.3fr 1fr">
+    <div class="panel">
+      <div class="ph"><h3>邮寄进度</h3><span>预计 12/22 送达</span></div>
+      <div class="tl" style="margin:10px 0 6px">
+        <div class="n ${pk?'done':'now'}"><div class="dot"><svg viewBox="0 0 24 24"><path d="M5 12l4.5 4.5L19 7"/></svg></div><b>采摘打包</b><em>${pk?'11/21 · 已采摘':'进行中'}</em></div>
+        <div class="n ${pk?'now':''}"><div class="dot"><svg viewBox="0 0 24 24"><path d="M5 12l4.5 4.5L19 7"/></svg></div><b>冷链发出</b><em>${pk?'11/22':'12/21'}</em></div>
+        <div class="n"><div class="dot"><svg viewBox="0 0 24 24"><path d="M5 12l4.5 4.5L19 7"/></svg></div><b>派送上门</b><em>12/22</em></div>
+        <div class="n"><div class="dot"><svg viewBox="0 0 24 24"><path d="M5 12l4.5 4.5L19 7"/></svg></div><b>确认收货</b><em>待定</em></div>
+      </div>
+      <p style="font-size:11.5px;color:#8E8D7C;margin:16px 0 0">分 3 箱寄出，箱内附木牌照片一张。</p>
+    </div>
+
+    <div class="panel">
+      <div class="ph"><h3>到校自提</h3><span>六位自提码</span></div>
+      <div class="plaque" style="font-size:26px;letter-spacing:8px;margin-bottom:14px">884217<small>锦江学院南门 · 田约驿站</small></div>
+      <div class="sumbox">
+        <div><span>可取货时段</span><span>12/21 – 12/27</span></div>
+        <div><span>营业时间</span><span>10:00 – 20:00</span></div>
+      </div>
+      <button class="btn" style="width:100%;justify-content:center;margin-top:14px" onclick="toast('已复制自提码 884217')">复制自提码</button>
+    </div>
+  </div>`;
+}
+
+function pageGroup(){
+  const pct = Math.min(100, Math.round(state.group/50*100));
+  return `
+  <div class="greet">
+    <div class="dt">校园团购 · 拼一箱更便宜</div>
+    <h1>凑到 50 份，<em>就发车。</em></h1>
+    <p>团长：本校学生 · 计算机科学与技术 2024 级 · 已开团 6 次</p>
+  </div>
+
+  <div class="cols" style="grid-template-columns:1.2fr 1fr">
+    <div class="panel">
+      <div class="ph"><h3>春见 20 斤整箱</h3><span>¥69.9</span></div>
+      <div style="background:var(--cream);border-radius:12px;height:10px;overflow:hidden;margin-bottom:10px">
+        <div style="width:${pct}%;height:100%;background:var(--orange2);border-radius:12px;transition:.3s"></div>
+      </div>
+      <div style="font-size:11.5px;color:#8E8D7C;display:flex;justify-content:space-between;margin-bottom:16px;gap:10px;flex-wrap:wrap">
+        <span>已拼 ${state.group} 份 · 还差 ${Math.max(0,50-state.group)} 份成团</span><span>截单 12/18 20:00</span>
+      </div>
+      <button class="btn ${state.group>=50?'':'orange'}" onclick="addGroup()">${state.group>=50?'已成团':'加入拼单'}</button>
+    </div>
+
+    <div class="panel">
+      <div class="ph"><h3>爱媛 38 号 10 斤尝鲜装</h3><span>¥39.9</span></div>
+      <p style="font-size:11.5px;color:#5C6152;line-height:1.9;margin:0 0 14px">小箱尝鲜，适合宿舍分着吃。成团后统一发车到锦江学院南门自提。</p>
+      <div class="sumbox">
+        <div><span>团长佣金</span><span>8%</span></div>
+        <div><span>每单约</span><span>¥5.6</span></div>
+        <div class="total"><span>可抵扣认养金</span><span>最高 50%</span></div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function pageCharity(){
+  return `
+  <div class="greet">
+    <div class="dt">公益认养 · 一棵树的另一种结局</div>
+    <h1>把收成<em>送出去。</em></h1>
+    <p>公益认养 498 元，平台另配捐 50 元冷链费，12 月 24 日统一送达。</p>
+  </div>
+
+  <div class="hero-grid">
+    <div class="feature" style="min-height:380px">
+      <img src="${IMG.orchard}" alt="">
+      <div class="corner"><span class="chip">公益认养 · 第 1 年</span></div>
+      <div class="in">
+        <h2 style="font-size:30px;margin:70px 0 8px">一棵树的另一种结局。</h2>
+        <p>已捐 1,286 斤 · 参与 412 人次 · 2 个受赠点位</p>
+        <button class="fbtn" onclick="go('checkout','t8')">公益认养 ¥498${I.arrow}</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="ph"><h3>捐赠证书</h3><span>样式预览</span></div>
+      <div class="plaque" style="font-size:13.5px;letter-spacing:1px;line-height:2.1;text-align:left;padding:22px">
+        兹证明 母晓龙 通过“田约认采”认养团结村 8 号树一棵，收成全部捐赠给彭山区留守儿童之家。
+        <small style="text-align:right">证书编号：GY-2026-0412<br>北纬 30°07′ · 东经 103°47′</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="cols" style="grid-template-columns:1fr 1fr">
+    <div class="panel">
+      <div class="ph"><h3>受赠点位</h3><span>2 个</span></div>
+      <div class="sumbox">
+        <div><span>彭山区留守儿童之家</span><span>12/24 送达</span></div>
+        <div><span>团结村日间照料中心</span><span>12/24 送达</span></div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="ph"><h3>费用说明</h3><span>透明</span></div>
+      <div class="sumbox">
+        <div><span>公益认养</span><span>¥498</span></div>
+        <div><span>平台配捐冷链费</span><span>¥50</span></div>
+        <div class="total"><span>你实际支付</span><span>¥498</span></div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function pageMe(){
+  const rows = [
+    ['我的订单','认养 · 团购 · 公益','2 笔'],
+    ['收成处置','当前：邮寄到家',''],
+    ['物流与自提','12/20 开园后发出',''],
+    ['认养协议与保底条款','保底 40 斤',''],
+    ['农户入驻 / 农户端','合作农户专用入口','去看看'],
+    ['客服与投诉','工作日 9:00–18:00','']
+  ];
+  return `
+  <div class="greet">
+    <div class="dt">我的 · 档案与入口</div>
+    <h1>母晓龙，<em>第 1 年认养。</em></h1>
+    <p>四川大学锦江学院 · 计算机科学与技术 · 2024 级 · 校园认证已通过</p>
+  </div>
+
+  <div class="stats" style="grid-template-columns:repeat(4,1fr)">
+    ${statCard('认养果树','1','棵','8 号树', I.tree)}
+    ${statCard('助农金额','378','元','累计 2 笔', I.heart)}
+    ${statCard('陪伴互动','9','次','留言 + 点赞', I.chat)}
+    ${statCard('减碳','12','kg','相当于 1 棵树一年', I.leaf)}
+  </div>
+
+  <div class="cols" style="grid-template-columns:1fr 1.1fr">
+    <div class="panel">
+      <div class="ph"><h3>我的果树</h3><span onclick="go('mine')">管理 ›</span></div>
+      <div class="media" style="margin:0;cursor:pointer" onclick="go('mine')">
+        <img src="${IMG.orchard}" alt="">
+        <div class="c"><b>团结村 8 号树</b><span>春见耙耙柑 · 转色期 · 12 月 20 日采摘</span></div>
+        <span class="badge green" style="margin-left:auto">在长</span>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="ph"><h3>功能入口</h3><span>6 个</span></div>
+      <div class="tscroll"><table class="tbl">
+        ${rows.map(([a,b,c])=>`<tr><td style="font-weight:500;width:38%">${a}</td><td style="color:#8E8D7C;font-size:11px">${b}</td><td style="text-align:right;color:#B26B3E;font-size:11px">${c}</td></tr>`).join('')}
+      </table></div>
+    </div>
+  </div>`;
+}
+
+function pageFarm(){
+  return `
+  <div class="greet">
+    <div class="dt">农户端 · 入口说明</div>
+    <h1>这是<em>农户端。</em></h1>
+    <p>本页是认养人（客户端）原型，农户工作台是独立入口，切过去是以“三个数字＋四个动作”为核心的农户界面。</p>
+  </div>
+  <div class="panel">
+    <p style="font-size:12.5px;color:#5C6152;line-height:2;margin:0">农户端从田埂页右上角相机图标进入：查看本月认养 12 棵、本月收入 4,776 元、待采摘 8 棵，并可拍动态、开直播、看认养订单、提现。当前演示版暂未搭建农户端页面。</p>
+    <button class="btn" style="margin-top:16px" onclick="go('home')">返回客户端工作台</button>
+  </div>`;
+}
+
+
+function pageOrders(){
+  return `
+  <div class="greet">
+    <div class="dt">认养订单 · 2 笔</div>
+    <h1>每一笔，<em>都看得见。</em></h1>
+    <p>认养、团购、公益三类订单都在这里，状态跟着果园走。</p>
+  </div>
+
+  <div class="stats">
+    ${statCard('累计订单','2','笔','1 认养 + 1 团购', I.doc)}
+    ${statCard('实付金额','447.9','元','含立减 20 元', I.leaf)}
+    ${statCard('待收成','60','斤','12 月 20 日开园', I.box, true)}
+  </div>
+
+  <div class="cols" style="grid-template-columns:1.35fr 1fr">
+    <div class="panel">
+      <div class="ph"><h3>全部订单</h3><span>近 30 天</span></div>
+      <div class="tscroll"><table class="tbl">
+        <tr><th>订单号</th><th>标的</th><th>金额</th><th>状态</th></tr>
+        <tr><td>TY20261121-0086</td><td>团结村 8 号树 · 标准认养</td><td>¥378</td><td><span class="badge green">已支付</span></td></tr>
+        <tr><td>TG20261118-0031</td><td>春见 20 斤整箱 · 校园团购</td><td>¥69.9</td><td><span class="badge orange">已成团</span></td></tr>
+        <tr><td>TY20261121-0087</td><td>加 12 元换手写木牌</td><td>¥12</td><td><span class="badge">演示 · 不可支付</span></td></tr>
+      </table></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px">
+        <button class="btn primary" onclick="go('trees')">再认一棵${I.arrow}</button>
+        <button class="btn" onclick="go('mine')">看我的果树</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="ph"><h3>认养订单进度</h3><span>8 号树</span></div>
+      <div class="tl" style="margin:14px 0 6px">
+        <div class="n done"><div class="dot"><svg viewBox="0 0 24 24"><path d="M5 12l4.5 4.5L19 7"/></svg></div><b>已支付</b><em>11/21</em></div>
+        <div class="n done"><div class="dot"><svg viewBox="0 0 24 24"><path d="M5 12l4.5 4.5L19 7"/></svg></div><b>已挂牌</b><em>11/22</em></div>
+        <div class="n now"><div class="dot"><svg viewBox="0 0 24 24"><path d="M5 12l4.5 4.5L19 7"/></svg></div><b>转色期</b><em>现在</em></div>
+        <div class="n"><div class="dot"><svg viewBox="0 0 24 24"><path d="M5 12l4.5 4.5L19 7"/></svg></div><b>待采摘</b><em>12/20</em></div>
+      </div>
+      <div class="sumbox" style="margin-top:16px">
+        <div><span>订单金额</span><span>¥398</span></div>
+        <div><span>校园认证立减</span><span style="color:#4C6B47">-¥20</span></div>
+        <div class="total"><span>实付</span><span>¥378</span></div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function pageWallet(){
+  return `
+  <div class="greet">
+    <div class="dt">助农钱包 · 我的助农值</div>
+    <h1>每一笔，<em>都进了果园。</em></h1>
+    <p>助农值来自认养、任务与团购，可直接抵扣下一年认养金。</p>
+  </div>
+
+  <div class="stats">
+    ${statCard('助农值','386','分','完成任务 +5 / 认养 +380', I.heart)}
+    ${statCard('校园佣金','5.6','元','团长 8% · 已开团 6 次', I.cart)}
+    ${statCard('可抵扣认养金','132','元','下一年最高抵 50%', I.leaf, true)}
+  </div>
+
+  <div class="cols" style="grid-template-columns:1.3fr 1fr">
+    <div class="panel">
+      <div class="ph"><h3>收支明细</h3><span>近 30 天</span></div>
+      <div class="tscroll"><table class="tbl">
+        <tr><th>时间</th><th>项目</th><th>金额 / 分值</th></tr>
+        <tr><td>11/21</td><td>认养支付 · 8 号树标准认养</td><td style="color:#B26B3E">-¥378</td></tr>
+        <tr><td>11/21</td><td>校园认证立减</td><td style="color:#4C6B47">+¥20</td></tr>
+        <tr><td>11/18</td><td>团购佣金 · 春见 20 斤</td><td style="color:#4C6B47">+¥5.6</td></tr>
+        <tr><td>11/17</td><td>今日小任务 · 提醒阿姨添衣</td><td style="color:#4C6B47">+5 助农值</td></tr>
+        <tr><td>11/12</td><td>木牌寄语已挂上</td><td style="color:#4C6B47">+10 助农值</td></tr>
+      </table></div>
+    </div>
+
+    <div class="panel">
+      <div class="ph"><h3>抵扣规则</h3><span>三条</span></div>
+      <p style="font-size:11.5px;color:#5C6152;line-height:2.1;margin:0 0 16px">1. 助农值 100 分抵 1 元，单笔最高抵 50%。<br>2. 团购佣金可全额转认养金，不折现。<br>3. 认养金抵扣仅限本人下一年认养使用。</p>
+      <div class="sumbox">
+        <div><span>当前助农值</span><span>386 分</span></div>
+        <div><span>可抵金额</span><span>¥3.86</span></div>
+        <div class="total"><span>佣金转认养金</span><span>¥5.6</span></div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function pageLive(){
+  const reps = [
+    ['第 11 期','红绳之前：8 号树的最后一次修剪','11/14','已结束 · 回放 38 分钟'],
+    ['第 10 期','降温那天，我们在树根盖了什么','11/07','已结束 · 回放 26 分钟']
+  ];
+  return `
+  <div class="greet">
+    <div class="dt">直播助手 · 我预约的直播</div>
+    <h1>今晚 19:30，<em>果园夜话。</em></h1>
+    <p>给 8 号树系上第一根红绳 · 周桂芳主讲 · 214 人已预约</p>
+  </div>
+
+  <div class="hero-grid" style="grid-template-columns:1.4fr 1fr;margin-bottom:18px">
+    <div class="aside-card" style="min-height:300px">
+      <img src="${IMG.broadcast}" alt="">
+      <div class="in">
+        ${farm.living?'<span class="live"><em></em>直播中 · 214 人正在看</span>':'<span class="live"><em></em>已预约 · 开播前 10 分钟提醒</span>'}
+        <h3 style="margin-top:44px">果园夜话 · 第 12 期</h3>
+        <p>今晚 19:30 · 可连麦问树</p>
+        <div class="row">
+          <span style="font-size:10.5px;color:rgba(255,255,255,.62)">周桂芳 · 团结村</span>
+          <button class="fbtn" onclick="toast(farm.living?'直播进行中，进入直播间（演示）':'已加入提醒，开播前通知你')">${farm.living?'进直播间':'加入提醒'}${I.arrow}</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="ph"><h3>我的直播记录</h3><span>2 场</span></div>
+      <div class="kv" style="margin-bottom:14px">
+        <div class="item"><i>已预约</i><b>1<small>场</small></b></div>
+        <div class="item"><i>已看回放</i><b>3<small>场</small></b></div>
+      </div>
+      <div class="sumbox">
+        <div><span>累计观看</span><span>2 小时 12 分</span></div>
+        <div class="total"><span>认养权益</span><span>全年 4 场专属直播</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="ph"><h3>往期回放</h3><span>认养人可见</span></div>
+    ${reps.map(([no,t,d,s])=>`
+      <div class="media" style="margin-bottom:10px;cursor:pointer" onclick="toast('回放播放为演示占位')">
+        <img src="${IMG.broadcast}" alt="">
+        <div class="c"><b>${no} · ${t}</b><span>${d} · ${s}</span></div>
+        <div class="play">${I.play}</div>
+      </div>`).join('')}
+  </div>`;
+}
+
+
+/* ================= 农户端 ================= */
+function liveBadge(){
+  return farm.living
+    ? '<span class="live"><em></em>直播中 · 214 人正在看</span>'
+    : '<span class="live"><em></em>直播预告 · 今晚 19:30</span>';
+}
+
+function pageFHome(){
+  const p = pending();
+  return `
+  <div class="greet">
+    <div class="dt">11 月 21 日 · 周六 · 彭山 9°C · 阴</div>
+    <h1>周阿姨，<em>今天果园也好。</em></h1>
+    <p>天冷了，8 号树转色过半。今天还有 3 件小事，慢慢来。</p>
+  </div>
+
+  <div class="stats">
+    ${statCard('本月认养','12','棵','12 / 12 全部认养 · 团结村 3 号果园', I.tree)}
+    ${statCard('本月收入','4,776','元','可提现 ¥'+farm.balance.toLocaleString(), I.wallet)}
+    ${statCard('待采摘', p+'', '棵','12 月 20 日开园', I.box, true)}
+  </div>
+
+  <div class="acts">
+    ${actCard('拍动态','记录今天', I.cam, 'orange', 'ffeed')}
+    ${actCard(farm.living?'正在直播':'开直播', farm.living?'观看 214 人':'今晚 19:30', I.live, 'blue', 'liveToggle')}
+    ${actCard('认养订单','12 笔 · 待采摘 '+p+' 单', I.doc, 'blue', 'forders')}
+    ${actCard('提现','可提 ¥'+farm.balance.toLocaleString(), I.wallet, 'orange', 'fwallet')}
+  </div>
+
+  <div class="hero-grid">
+    <div class="feature">
+      <img src="${IMG.orchard}" alt="果园">
+      <div class="corner"><span class="chip">2026 产季 · 本季认养已满</span></div>
+      <div class="corner2">拍摄于 11 月 18 日 · 团结村 3 号果园</div>
+      <div class="in">
+        <h2>这一季，12 棵树<br>都有了年轻的主人。</h2>
+        <p>从锦江学院到团结村，一段 6.8 公里的相互惦记。</p>
+        <button class="fbtn" onclick="go('fmine')">看我的树${I.arrow}</button>
+      </div>
+      <div class="mates">
+        <img src="${IMG.keeper}" alt="">
+        <div><b>12 位认养人</b><span>8 棵树等你挂红绳</span></div>
+      </div>
+    </div>
+
+    <div class="aside-card">
+      <img src="${IMG.broadcast}" alt="直播">
+      <div class="in">
+        ${liveBadge()}
+        <h3 style="margin-top:44px">果园夜话 · 第 12 期</h3>
+        <p>${farm.living?'正在讲：给 8 号树系上第一根红绳':'给 8 号树系上第一根红绳 · 214 人已预约'}</p>
+        <div class="row">
+          <span style="font-size:10.5px;color:rgba(255,255,255,.62)">${farm.living?'本场已播 12 分钟':'周桂芳 · 团结村'}</span>
+          <button class="fbtn" onclick="go('flive')">${farm.living?'进直播助手':'去准备直播'}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cols" style="margin-top:18px">
+    <div class="panel">
+      <div class="ph"><h3>今天要做的事</h3><span>3 件</span></div>
+      <table class="tbl">
+        <tr><td style="width:56%">给 8 号树拍采摘前视频</td><td style="color:#8E8D7C;font-size:11px">认养人 12 人可见</td><td style="text-align:right"><span class="badge orange" style="cursor:pointer" onclick="go('ffeed')">去拍</span></td></tr>
+        <tr><td>挂 3 张手写木牌（7 / 9 / 11 号树）</td><td style="color:#8E8D7C;font-size:11px">明天前</td><td style="text-align:right"><span class="badge green">已备料</span></td></tr>
+        <tr><td>本月收入提现</td><td style="color:#8E8D7C;font-size:11px">可提 ¥${farm.balance.toLocaleString()}</td><td style="text-align:right"><span class="badge" style="cursor:pointer" onclick="go('fwallet')">去提现</span></td></tr>
+      </table>
+    </div>
+    <div class="panel">
+      <div class="ph"><h3>最近发出的动态</h3><span onclick="go('ffeed')" style="cursor:pointer">去发一条 ›</span></div>
+      ${farm.posts.length? farm.posts.slice(0,2).map(p=>`<div class="sumbox" style="margin-bottom:10px"><div><span>${p.ts}</span><span>认养人可见</span></div><div class="total" style="font-weight:500;font-size:12px">${p.txt}</div></div>`).join('')
+        : '<p style="font-size:12px;color:#8E8D7C;line-height:2;margin:0 0 12px">还没发过动态。拍一条，12 位认养人在田埂动态里就能看到。</p>'+
+          '<button class="btn primary" onclick="go(\'ffeed\')">发第一条动态'+I.arrow+'</button>'}
+    </div>
+  </div>`;
+}
+
+function pageFFeed(){
+  return `
+  <div class="greet">
+    <div class="dt">果园动态 · 认养人可见</div>
+    <h1>说一句，<em>他们就看见了。</em></h1>
+    <p>发出的动态会同步到客户端的「田埂动态」，也可以夹一张果园照片。</p>
+  </div>
+
+  <div class="panel" style="margin-bottom:18px">
+    <div class="ph"><h3>发一条果园动态</h3><span>同步给 12 位认养人</span></div>
+    <textarea id="fpost" placeholder="例：8 号树的果子今天又红了一点，你们看照片。" style="width:100%;min-height:96px;border:1px solid #EAE4D5;border-radius:14px;padding:12px 14px;font-family:inherit;font-size:12.5px;color:#28301F;background:#FCFBF7;resize:vertical;outline:none"></textarea>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;align-items:center">
+      <span class="badge" style="cursor:pointer" onclick="toast('演示版：拍照占位，用文字代替')">＋ 果园照片</span>
+      <span class="badge orange" style="cursor:pointer" onclick="toast('已标记：仅认养人可见')">仅认养人可见</span>
+      <button class="btn primary" style="margin-left:auto" onclick="postFeed()">发布动态${I.arrow}</button>
+    </div>
+  </div>
+
+  <div class="feed">
+    ${farm.posts.map(p=>`
+      <div class="post">
+        <div class="bd" style="padding-top:16px">
+          <div class="who"><img src="${IMG.keeper}" alt=""><b>周桂芳</b><span>${p.ts} · 农户端发出</span></div>
+          <p>${p.txt}</p>
+          <div class="act2"><span onclick="toast('已点赞')">♡ 赞 ${p.likes}</span><span onclick="delPost('${p.id}')" style="cursor:pointer">删除</span><span style="margin-left:auto">已同步到客户端</span></div>
+        </div>
+      </div>`).join('')}
+    <div class="post">
+      <div class="ph2"><img src="${IMG.broadcast}" alt=""><div class="tag">生长播报 · 第 9 期</div><div class="dur">00:42</div></div>
+      <div class="bd">
+        <div class="who"><img src="${IMG.keeper}" alt=""><b>周桂芳</b><span>团结村 · 68 岁 · 认养人可见</span></div>
+        <p>果子开始转色了，今天摸了一下，硬邦邦的刚好。这两天降温，我给树根盖了点稻草。</p>
+        <div class="act2"><span>♡ 赞 128</span><span>评论 12</span><span style="margin-left:auto">11/18 09:12</span></div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function pageFOrders(){
+  return `
+  <div class="greet">
+    <div class="dt">认养订单 · 12 笔</div>
+    <h1>12 户人家，<em>等着这棵树。</em></h1>
+    <p>采摘后点「标记已采摘」，客户端那边的收成进度会立刻跟着变。</p>
+  </div>
+
+  <div class="stats">
+    ${statCard('认养订单','12','笔','全部已支付', I.doc)}
+    ${statCard('已采摘', farm.picked.length+'','笔','还剩 '+pending()+' 笔待采摘', I.box)}
+    ${statCard('待结算','4,776','元','采摘完成后 T+1 到账', I.wallet, true)}
+  </div>
+
+  <div class="panel">
+    <div class="ph"><h3>订单明细</h3><span>按支付时间</span></div>
+    <div class="tscroll">
+    <table class="tbl">
+      <tr><th>订单号</th><th>果树</th><th>认养人</th><th>金额</th><th>状态</th></tr>
+      ${FORDERS.map(o=>`<tr>
+        <td style="font-size:11px">${o.no}</td>
+        <td>${o.tree}<br><span style="font-size:10.5px;color:#8E8D7C">${o.v}</span></td>
+        <td>${o.buyer}${o.mine?'<span class="badge" style="margin-left:6px;font-size:9px">我认养</span>':''}</td>
+        <td>¥${o.price}</td>
+        <td>${farm.picked.indexOf(o.id)>-1
+            ? '<span class="badge green">已采摘</span>'
+            : `<span class="badge orange" style="cursor:pointer" onclick="pickOrder('${o.id}')">标记已采摘</span>`}</td>
+      </tr>`).join('')}
+    </table></div>
+  </div>`;
+}
+
+function pageFMine(){
+  const mine = FORDERS[0];
+  return `
+  <div class="greet">
+    <div class="dt">我的果树 · 代管 8 棵</div>
+    <h1>团结村 8 号树，<em>熟了。</em></h1>
+    <p>春见耙耙柑 · 12 年树龄 · 保底 60 斤 · 糖度 14.2</p>
+  </div>
+
+  <div class="cols" style="grid-template-columns:1.25fr 1fr">
+    <div class="panel">
+      <div class="ph"><h3>8 号树 · 认养人 12 位</h3><span>${farm.picked.indexOf('FY-08')>-1?'已采摘':'待采摘'}</span></div>
+      <div style="display:flex;gap:12px;align-items:center;margin-bottom:14px">
+        <img src="${IMG.orchard}" style="width:132px;height:92px;object-fit:cover;border-radius:12px" alt="">
+        <div style="font-size:11.5px;color:#5C6152;line-height:2">挂牌第 12 天 · 木牌在 3 号主枝<br>守树人：周桂芳（我）<br>第一位认养人：${mine.buyer}</div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn primary" onclick="go('ffeed')">拍生长视频${I.arrow}</button>
+        <button class="btn" onclick="${farm.picked.indexOf('FY-08')>-1?"toast('这棵树已经标记过采摘')":"pickOrder('FY-08')"}">${farm.picked.indexOf('FY-08')>-1?'已标记采摘':'标记已采摘'}</button>
+        <button class="btn" onclick="toast('已通知 12 位认养人')">通知认养人</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="ph"><h3>我代管的树</h3><span>8 棵</span></div>
+      <table class="tbl">
+        ${['8 号树 · 12 人','7 号树 · 11 人','5 号树 · 9 人','11 号树 · 8 人'].map(x=>`<tr><td style="width:62%">${x.split(' · ')[0]}</td><td style="color:#8E8D7C;font-size:11px">${x.split(' · ')[1]}</td><td style="text-align:right"><span class="badge green">在长</span></td></tr>`).join('')}
+      </table>
+      <button class="btn" style="margin-top:14px;width:100%" onclick="go('forders')">看全部认养订单</button>
+    </div>
+  </div>`;
+}
+
+function pageFWallet(){
+  return `
+  <div class="greet">
+    <div class="dt">收益钱包 · 本月收入</div>
+    <h1>卖出去的果，<em>都算得清。</em></h1>
+    <p>认养收入按月结算，采摘完成后 T+1 到账，可提现到银行卡。</p>
+  </div>
+
+  <div class="stats">
+    ${statCard('可提现', farm.balance.toLocaleString(), '元','尾号 6621 的银行卡', I.wallet)}
+    ${statCard('本月收入','4,776','元','12 笔认养 · 已扣平台服务费', I.leaf)}
+    ${statCard('待结算','934','元','还有 '+pending()+' 笔未采摘', I.box, true)}
+  </div>
+
+  <div class="cols" style="grid-template-columns:1.3fr 1fr">
+    <div class="panel">
+      <div class="ph"><h3>收支明细</h3><span>本月</span></div>
+      <table class="tbl">
+        <tr><th>时间</th><th>项目</th><th>金额</th></tr>
+        ${farm.logs.slice().reverse().map(l=>`<tr><td>${l.ts}</td><td>${l.t}</td><td style="color:#B26B3E">-¥${l.amt}</td></tr>`).join('')}
+        <tr><td>11/20</td><td>认养收入 · 5 号树</td><td style="color:#4C6B47">+¥378</td></tr>
+        <tr><td>11/19</td><td>认养收入 · 2 号树</td><td style="color:#4C6B47">+¥398</td></tr>
+        <tr><td>11/18</td><td>认养收入 · 9 号树</td><td style="color:#4C6B47">+¥378</td></tr>
+      </table>
+    </div>
+
+    <div class="panel">
+      <div class="ph"><h3>提现</h3><span>${farm.balance>0?'可提':'已提完'}</span></div>
+      <div class="sumbox" style="margin-bottom:14px">
+        <div><span>可提现余额</span><span>¥${farm.balance.toLocaleString()}</span></div>
+        <div class="total"><span>到账时间</span><span>2 小时内</span></div>
+      </div>
+      <button class="btn primary" style="width:100%" onclick="withdraw()">${farm.balance>0?'提现到银行卡':'本月已提现'}</button>
+      <p style="font-size:11px;color:#8E8D7C;line-height:2;margin:14px 0 0">提现免手续费；单笔上限 5 万元；到账后可继续接单。</p>
+    </div>
+  </div>`;
+}
+
+function pageFLive(){
+  return `
+  <div class="greet">
+    <div class="dt">直播助手 · ${farm.living?'正在直播':'今晚 19:30 开播'}</div>
+    <h1>${farm.living?'214 人，<em>正听你讲。</em>':'开播前，<em>先挂个预告。</em>'}</h1>
+    <p>${farm.living?'本场：给 8 号树系上第一根红绳':'预约 214 人 · 开播后自动推给全部认养人'}</p>
+  </div>
+
+  <div class="hero-grid" style="grid-template-columns:1.4fr 1fr">
+    <div class="aside-card" style="min-height:300px">
+      <img src="${IMG.broadcast}" alt="">
+      <div class="in">
+        ${farm.living?'<span class="live"><em></em>直播中 · 12 分 40 秒</span>':'<span class="live"><em></em>已预约 · 214 人</span>'}
+        <h3 style="margin-top:44px">果园夜话 · 第 12 期</h3>
+        <p>${farm.living?'弹幕在问 8 号树什么时候能摘':'今晚 19:30 · 可连麦问树'}</p>
+        <div class="row">
+          <span style="font-size:10.5px;color:rgba(255,255,255,.62)">${farm.living?'观看 214 · 评论 63':'周桂芳 · 团结村'}</span>
+          <button class="fbtn" onclick="toggleLive()">${farm.living?'结束直播':'开始直播'}</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="ph"><h3>本场数据</h3><span>实时</span></div>
+      <div class="kv" style="margin-bottom:14px">
+        <div class="item"><i>观看</i><b>${farm.living?'214':'—'}</b></div>
+        <div class="item"><i>新增预约</i><b>${farm.living?'18':'214'}</b></div>
+      </div>
+      <div class="sumbox">
+        <div><span>直播带来的订单</span><span>${farm.living?'3 笔':'0 笔'}</span></div>
+        <div class="total"><span>回放保留</span><span>30 天</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top:18px">
+    <div class="ph"><h3>往期直播</h3><span>2 场</span></div>
+    <div class="media" style="margin-bottom:10px"><img src="${IMG.broadcast}" alt=""><div class="c"><b>第 11 期 · 红绳之前：8 号树的最后一次修剪</b><span>11/14 · 观看 186 人 · 回放 38 分钟</span></div><div class="play">${I.play}</div></div>
+    <div class="media"><img src="${IMG.broadcast}" alt=""><div class="c"><b>第 10 期 · 降温那天，我们在树根盖了什么</b><span>11/07 · 观看 152 人 · 回放 26 分钟</span></div><div class="play">${I.play}</div></div>
+  </div>`;
+}
+
+function pageFMe(){
+  return `
+  <div class="greet">
+    <div class="dt">我的 · 农户档案</div>
+    <h1>周桂芳，<em>第 3 年守树。</em></h1>
+    <p>团结村 3 号果园 · 代管 47 户 126 亩 · 已服务 3 届认养人</p>
+  </div>
+
+  <div class="stats">
+    ${statCard('代管果树','8','棵','本季全部认养满', I.tree)}
+    ${statCard('累计认养人','96','位','三届累计', I.heart)}
+    ${statCard('结算银行','6621','尾号','农业银行 · 周桂芳', I.wallet, true)}
+  </div>
+
+  <div class="cols">
+    <div class="panel">
+      <div class="ph"><h3>农户认证</h3><span>已通过</span></div>
+      <table class="tbl">
+        <tr><td style="width:46%">实名认证</td><td style="text-align:right"><span class="badge green">周桂芳 · 已认证</span></td></tr>
+        <tr><td>果园位置</td><td style="text-align:right">彭山区团结村 3 号果园</td></tr>
+        <tr><td>合作协议</td><td style="text-align:right">2024 - 2026 届 · 有效</td></tr>
+        <tr><td>结算周期</td><td style="text-align:right">采摘后 T+1</td></tr>
+      </table>
+    </div>
+    <div class="panel">
+      <div class="ph"><h3>切到客户端</h3><span>认养人视角</span></div>
+      <p style="font-size:12px;color:#5C6152;line-height:2;margin:0 0 14px">看完果园这边，可以随时切回认养人的工作台，两边的动态、订单和收成进度是同一份数据。</p>
+      <button class="btn primary" style="width:100%" onclick="setSide('client')">切回用户端${I.arrow}</button>
+    </div>
+  </div>`;
+}
+
+/* ---------- 双端外壳 ---------- */
+function buildNav(side){
+  return NAV[side].map(g=>
+    (g.lbl? `<div class="navlbl">${g.lbl}</div>`:'') +
+    g.items.map(it=>`<a href="#${it.r}" data-r="${it.r}"${it.r==='companion'?' onclick="event.preventDefault();openCompanion()"':''}>${I[it.ic]}${it.t}${it.cnt?`<span class="cnt">${it.cnt}</span>`:''}</a>`).join('')
+  ).join('');
+}
+function refreshNav(active){
+  [...document.querySelectorAll('#nav a')].forEach(a=>a.classList.toggle('on', a.dataset.r===active));
+}
+function paintChrome(){
+  const f = state.side === 'farmer';
+  document.body.classList.toggle('farmer', f);
+  const brand = document.getElementById('brandRole');
+  if(brand) brand.textContent = f ? '农户工作台' : '认养人工作台';
+  const av = document.getElementById('userAv');
+  if(av){
+    if(f){ av.textContent=''; av.style.backgroundImage=`url("${IMG.keeper}")`; av.style.backgroundSize='cover'; av.style.backgroundPosition='center 20%'; }
+    else { av.textContent='晓'; av.style.backgroundImage='none'; }
+  }
+  const nm = document.getElementById('userName');
+  if(nm) nm.textContent = f ? '周桂芳' : '母晓龙';
+  const sub = document.getElementById('userSub');
+  if(sub) sub.textContent = f ? '团结村 3 号果园 · 代管 8 棵' : '锦江学院 · 8 号树认养人';
+  const cs = document.getElementById('crumbSide');
+  if(cs) cs.textContent = f ? '农户端' : '客户端';
+  const ma = document.getElementById('meAv'), mn = document.getElementById('meName');
+  if(ma){ ma.textContent = f?'芳':'晓'; }
+  if(mn) mn.textContent = f ? '周桂芳' : '母晓龙';
+  const st = document.getElementById('switchTxt');
+  if(st) st.textContent = f ? '切回用户端' : '切回农户端';
+  const nav = document.getElementById('nav');
+  if(nav) nav.innerHTML = buildNav(state.side);
+}
+function setSide(side, route){
+  state.side = side;
+  try{ localStorage.setItem('ty_side', side); }catch(e){}
+  paintChrome();
+  const target = route || (side==='farmer' ? 'fhome' : 'home');
+  if(location.hash !== '#'+target){ location.hash = target; }
+  render();
+}
+
+/* ---------- 路由 ---------- */
+function render(){
+  const h = (location.hash||'').replace('#','');
+  const parts = h.split('/');
+  const r = parts[0], arg = parts[1];
+  if(r === 'farm'){ setSide('farmer','fhome'); return; }
+  const pages = {home:pageHome,mine:pageMine,trees:pageTrees,feed:pageFeed,chat:pageChat,
+                 harvest:pageHarvest,progress:pageProgress,group:pageGroup,charity:pageCharity,
+                 me:pageMe,success:pageSuccess,
+                 orders:pageOrders,wallet:pageWallet,live:pageLive,
+                 fhome:pageFHome,ffeed:pageFFeed,forders:pageFOrders,fmine:pageFMine,
+                 fwallet:pageFWallet,flive:pageFLive,fme:pageFMe,
+                 checkout:()=>pageCheckout(arg||'t8'), tree:()=>pageTree(arg||'t8')};
+  const FROUTES = ['fhome','ffeed','forders','fmine','fwallet','flive','fme'];
+  if(pages[r]){
+    const want = FROUTES.indexOf(r)>-1 ? 'farmer' : 'client';
+    if(state.side !== want){
+      state.side = want;
+      try{ localStorage.setItem('ty_side', want); }catch(e){}
+      paintChrome();
+    }
+  }
+  const def = state.side==='farmer' ? 'fhome' : 'home';
+  const rk = pages[r] ? r : def;
+  document.getElementById('view').innerHTML = pages[rk]();
+  document.getElementById('crumbName').textContent = ROUTE_NAME[rk]||'工作台';
+  const alias = (rk==='tree')?'trees':(rk==='progress'?'harvest':(rk==='success'?'trees':''));
+  refreshNav(alias || rk);
+  window.scrollTo(0,0);
+}
+function go(r,arg){
+  if(r==='liveToggle'){ toggleLive(); r='flive'; }
+  location.hash = arg? (r+'/'+arg) : r;
+}
+
+/* ---------- 交互 ---------- */
+
+function postFeed(){
+  const i = document.getElementById('fpost');
+  const v = ((i&&i.value)||'').trim();
+  if(!v){ toast('先写一句，再发布'); return; }
+  farm.posts.unshift({id:'p'+Date.now(), txt:v, ts:'刚刚 · 11/21', likes:0});
+  saveFarm();
+  if(i) i.value='';
+  render();
+  toast('已发布，客户端「田埂动态」同步可见');
+}
+function delPost(id){
+  farm.posts = farm.posts.filter(p=>p.id!==id);
+  saveFarm(); render(); toast('已删除这条动态');
+}
+function toggleLive(){
+  farm.living = !farm.living;
+  farm.liveStart = farm.living ? Date.now() : null;
+  saveFarm();
+  if(farm.living) toast('直播已开始，214 位预约人收到开播提醒');
+  else toast('直播已结束，回放保留 30 天');
+  render();
+}
+function pickOrder(id){
+  if(farm.picked.indexOf(id)>-1) return;
+  farm.picked.push(id); saveFarm(); render();
+  toast('已标记采摘，客户端的收成进度同步更新');
+}
+function withdraw(){
+  if(farm.balance<=0){ toast('本月已经提现过了'); return; }
+  farm.logs.push({ts:'11/21', t:'提现到农业银行（尾号 6621）', amt:farm.balance});
+  farm.balance = 0;
+  saveFarm(); render();
+  toast('提现已申请，2 小时内到账');
+}
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('on');
+  clearTimeout(window.__tt); window.__tt=setTimeout(()=>t.classList.remove('on'),1900);
+}
+function pickPlan(p){ state.plan=p; render(); }
+function pickWay(w){ state.ways=w; render(); }
+function pickHarvest(k){
+  state.harvest=k;
+  const names={ship:'邮寄到家',pick:'到校自提',give:'公益捐赠',sell:'团购代销'};
+  document.querySelectorAll('.opt').forEach(x=>{
+    const oc=x.getAttribute('onclick')||'';
+    if(oc.indexOf('pickHarvest')>-1) x.classList.toggle('on', oc.indexOf("'"+k+"'")>-1);
+  });
+  const el=document.getElementById('wayName'); if(el) el.textContent=names[k];
+}
+function plaquePreview(v){
+  const el=document.getElementById('plaqueText'); if(el) el.textContent=v||'写下你的那句话';
+}
+function usePlaque(v){
+  const i=document.getElementById('plaqueInput'); if(i){ i.value=v; plaquePreview(v); }
+}
+function submitOrder(){
+  if(!state.agree){ toast('请先勾选《果树认养服务协议》'); return; }
+  toast('支付成功，正在锁树…');
+  setTimeout(()=>go('success'),1200);
+}
+function addGroup(){
+  state.group=Math.min(50,state.group+1);
+  render();
+  if(state.group>=50) toast('已成团，等待发车');
+  else toast('已加入拼单，还差 '+(50-state.group)+' 份');
+}
+function sendQuick(t){
+  const log=document.getElementById('log'); if(!log) return;
+  log.insertAdjacentHTML('beforeend','<div class="msg mine">'+t+'<time>刚刚</time></div>');
+  log.scrollTop=log.scrollHeight;
+  setTimeout(()=>{
+    log.insertAdjacentHTML('beforeend','<div class="msg them">收到娃儿，阿姨记下了。<time>刚刚</time></div>');
+    log.scrollTop=log.scrollHeight;
+  },1600);
+}
+function sendMsg(){
+  const i=document.getElementById('chatIn'); if(!i) return;
+  const v=(i.value||'').trim();
+  if(!v){ toast('说点什么再发送'); return; }
+  const log=document.getElementById('log');
+  log.insertAdjacentHTML('beforeend','<div class="msg mine">'+v+'<time>刚刚</time></div>');
+  i.value=''; log.scrollTop=log.scrollHeight;
+  setTimeout(()=>{
+    log.insertAdjacentHTML('beforeend','<div class="msg them">嗯，你说的我晓得了，我记到本本上。<time>刚刚</time></div>');
+    log.scrollTop=log.scrollHeight;
+  },1600);
+}
+
+/* ---------- 在客户端内嵌入认养人端 ---------- */
+let companionLastFocus = null;
+function openCompanion(){
+  const layer = document.getElementById('companionLayer');
+  const frame = document.getElementById('companionFrame');
+  if(!layer || !frame) return;
+  if(!frame.dataset.loaded){
+    frame.src = 'client.html?embed=1';
+    frame.dataset.loaded = '1';
+  }
+  companionLastFocus = document.activeElement;
+  layer.classList.add('open');
+  layer.setAttribute('aria-hidden','false');
+  document.body.classList.add('companion-open');
+  const close = layer.querySelector('.cb-close');
+  if(close) close.focus({preventScroll:true});
+}
+function closeCompanion(){
+  const layer = document.getElementById('companionLayer');
+  if(!layer) return;
+  layer.classList.remove('open');
+  layer.setAttribute('aria-hidden','true');
+  document.body.classList.remove('companion-open');
+  if(companionLastFocus && typeof companionLastFocus.focus === 'function'){
+    companionLastFocus.focus({preventScroll:true});
+  }
+}
+document.addEventListener('keydown', e=>{
+  if(e.key === 'Escape'){
+    const layer = document.getElementById('companionLayer');
+    if(layer && layer.classList.contains('open')) closeCompanion();
+  }
+});
+
+window.addEventListener('hashchange',render);
+document.getElementById('toFarm').addEventListener('click',e=>{
+  e.preventDefault();
+  setSide(state.side==='farmer'?'client':'farmer');
+});
+try{ state.side = localStorage.getItem('ty_side') || 'client'; }catch(e){}
+paintChrome();
+render();
+</script>
+
+<!-- ===== 去除平台自动注入的“豆包/AI生成”角标 ===== -->
+<style id="no-doubao-badge">
+  [data-custom-element="doubao-watermark"],
+  [data-custom-element="doubao-watermark-mobile"]{
+    display:none !important;visibility:hidden !important;opacity:0 !important;pointer-events:none !important;
+  }
+</style>
+<script>
+(function(){
+  function strip(root){
+    try{
+      var list=(root.querySelectorAll?root.querySelectorAll('[data-custom-element]'):[]);
+      for(var i=0;i<list.length;i++){
+        var v=list[i].getAttribute('data-custom-element')||'';
+        if(v.indexOf('watermark')>-1){ list[i].remove(); }
+      }
+    }catch(e){}
+  }
+  strip(document);
+  var mo=new MutationObserver(function(muts){
+    muts.forEach(function(m){
+      m.addedNodes.forEach(function(n){
+        if(n.nodeType===1){
+          var v=n.getAttribute&&n.getAttribute('data-custom-element');
+          if(v&&v.indexOf('watermark')>-1){ n.remove(); return; }
+          strip(n);
+        }
+      });
+    });
+  });
+  mo.observe(document.documentElement,{childList:true,subtree:true});
+  var n=0,t=setInterval(function(){ strip(document); if(++n>50) clearInterval(t); },200);
+})();
+</script>
+</body>
+</html>
