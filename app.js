@@ -557,6 +557,9 @@
         <span><strong>田约认采</strong><small>农户工作台 · 团结村</small></span>
       </a>
       <div class="mobile-head-actions">
+        <a class="mobile-client-link" href="client.html" aria-label="进入认养人端">
+          ${icon("smartphone")}<span>认养人端</span>
+        </a>
         <button class="icon-btn" type="button" data-action="notifications" aria-label="查看通知">
           ${icon("bell")}<span class="dot-badge" data-notif-badge hidden>3</span>
         </button>
